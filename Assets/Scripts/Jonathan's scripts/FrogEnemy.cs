@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class FrogEnemy : MonoBehaviour
 {
+    //attack with tongue, spawn flies when opening mouth every now and then,disable inner trigger when closing mouth.
+    //go down after 3 hits.
     public GameObject frogGO;
     [SerializeField] private Transform playerTarget;
 

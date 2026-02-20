@@ -8,24 +8,24 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - player
   - Water
   - UI
-  - 
-  - 
+  - Non-Player
   - Enemies
-  - 
-  - EnemyProximity
-  - 
-  - 
-  - 
-  - 
+  - Interactables
+  - Objects
+  - Environment
+  - Terrain
   - 
   - 
   - 
   - 
   - 
-  - FrogMouth
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

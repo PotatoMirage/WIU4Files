@@ -18,7 +18,6 @@ public class FrogEnemy : MonoBehaviour
     public GameObject fliesPrefab;
     public Transform mouthSpawnPoint;
 
-    public Collider mouthCollider;
     public Collider tongueCollider;
     public Animator frogAnimator;
 
@@ -41,11 +40,6 @@ public class FrogEnemy : MonoBehaviour
         
         isEmerged = false;
         timeOutOfRange = 0f;
-        
-        if (mouthCollider != null)
-        {
-            mouthCollider.enabled = false;
-        }
 
         if (tongueCollider != null)
         {
@@ -163,20 +157,6 @@ public class FrogEnemy : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
-    }
-    public void OpenMouth()
-    {
-        if (mouthCollider != null)
-        {
-            mouthCollider.enabled = true;
-        }
-    }
-    public void CloseMouth()
-    {
-        if (mouthCollider != null)
-        {
-            mouthCollider.enabled = false;
-        }
     }
     public void EnableTongueCollider()
     {

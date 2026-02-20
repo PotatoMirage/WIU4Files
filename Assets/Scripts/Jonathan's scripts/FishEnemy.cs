@@ -1,11 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class FishEnemy : MonoBehaviour
 {
-    //Fish appears when player stays in the water over 5 seconds, fish will then attack the player and make the player bleed over time.
     public GameObject fishGO;
     [SerializeField] private Transform playerTarget;
     [SerializeField] private Animator animator;
+
+    public float moveSpeed = 4f;
+    public int attackDamage = 10;
+    public int bleedDamagePerTick = 2;
+    public int bleedTicks = 5;
+    public float bleedTickInterval = 1f;
+
+    private bool isChasing = false;
+    private bool isBleeding = false;
     private void Awake()
     {
         if (playerTarget == null)
@@ -13,30 +22,19 @@ public class FishEnemy : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null) playerTarget = player.transform;
         }
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        RotateTowardsPlayer();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
+        if (fishGO != null)
         {
-            AttackPlayer();
+            fishGO.SetActive(false);
         }
     }
-    private void AttackPlayer()
+    private void Update()
     {
-        Debug.Log("attackedplayer!");
-        //Deal damage + dot
+        if (isChasing && playerTarget != null)
+        {
+            RotateTowardsPlayer();
+            MoveTowardsPlayer();
+        }
     }
     private void RotateTowardsPlayer()
     {
@@ -47,5 +45,61 @@ public class FishEnemy : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
+    }
+    private void MoveTowardsPlayer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, moveSpeed * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            AttackPlayer();
+        }
+    }
+    private void AttackPlayer()
+    {
+        if (!isBleeding)
+        {
+            StartCoroutine(ApplyBleedEffect());
+        }
+    }
+    private IEnumerator ApplyBleedEffect()
+    {
+        isBleeding = true;
+
+        if (playerTarget != null)
+        {
+            playerTarget.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
+        }
+
+        for (int i = 0; i < bleedTicks; i++)
+        {
+            yield return new WaitForSeconds(bleedTickInterval);
+            if (playerTarget != null)
+            {
+                playerTarget.SendMessage("TakeDamage", bleedDamagePerTick, SendMessageOptions.DontRequireReceiver);
+            }
+        }
+
+        isBleeding = false;
+    }
+    public void Appear()
+    {
+        if (fishGO != null)
+        {
+            fishGO.SetActive(true);
+        }
+        isChasing = true;
+    }
+    public void Disappear()
+    {
+        if (fishGO != null)
+        {
+            fishGO.SetActive(false);
+        }
+        isChasing = false;
+        isBleeding = false;
+        StopAllCoroutines();
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Frog_Jump
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: a57f5e3b38a1117419c26eee710f5510, type: 2}
+  - {fileID: 11400000, guid: 26669d789c1b83545b8471552b98678f, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: f3b16c00b07118b428f0364050206e05, type: 2}
-    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+  - decision: {fileID: 11400000, guid: 745280c0bbcbf544e856c01240d7adb8, type: 2}
+    trueState: {fileID: 11400000, guid: f8d7fe07523fc234ebcc4a3d36e346bf, type: 2}
+    falseState: {fileID: 11400000, guid: 7fc7e4619c599f9468db2186542daa35, type: 2}

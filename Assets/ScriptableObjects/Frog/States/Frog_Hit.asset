@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Frog_Hit
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: 088be52f64a3e604596851e0a5896799, type: 2}
+  - {fileID: 11400000, guid: 3c84d747da3f71b4b84ad046fd75ad12, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: bcef6b885a7a21842802787843000451, type: 2}
-    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+  - decision: {fileID: 11400000, guid: 1a9107eba4054aa4ea0d80606cbd039f, type: 2}
+    trueState: {fileID: 11400000, guid: f8d7fe07523fc234ebcc4a3d36e346bf, type: 2}
+    falseState: {fileID: 11400000, guid: 7fc7e4619c599f9468db2186542daa35, type: 2}

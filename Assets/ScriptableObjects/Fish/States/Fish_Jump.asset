@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Fish_Jump
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: a57f5e3b38a1117419c26eee710f5510, type: 2}
+  - {fileID: 11400000, guid: 0229a531601de3c4d921196200348db5, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: f3b16c00b07118b428f0364050206e05, type: 2}
-    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+  - decision: {fileID: 11400000, guid: bfb1eac7a1eb5744b87e8a11f3272c5f, type: 2}
+    trueState: {fileID: 11400000, guid: f153a7660e85a4e4eab01efe3f2c9316, type: 2}
+    falseState: {fileID: 11400000, guid: 39747906f28f8b340b0231d5b3689f31, type: 2}

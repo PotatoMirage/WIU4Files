@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Frog_Idle
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: e5c877c9d4997a94f9d305fbf7c37660, type: 2}
+  - {fileID: 11400000, guid: 92d33c57d026b9348b58bad77ae06f6b, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: d9ae208abf7910d4c876ca7c13ecaf14, type: 2}
-    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+  - decision: {fileID: 11400000, guid: f00a08abe622789428ff78668c621ec5, type: 2}
+    trueState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 7fc7e4619c599f9468db2186542daa35, type: 2}
   - decision: {fileID: 11400000, guid: b3f6960e77e906e438848821fd5703dd, type: 2}
     trueState: {fileID: 11400000, guid: b03d6deeb2a01584e8199527f2f8d77c, type: 2}
     falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}

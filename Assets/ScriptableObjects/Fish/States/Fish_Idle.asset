@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fish_Idle
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: e5c877c9d4997a94f9d305fbf7c37660, type: 2}
+  - {fileID: 11400000, guid: acb398d904d9eea4cbd0a6d96f82d462, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: d9ae208abf7910d4c876ca7c13ecaf14, type: 2}
-    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+  - decision: {fileID: 11400000, guid: 8803f5e390471ce40a0bb17e2cde5124, type: 2}
+    trueState: {fileID: 11400000, guid: f153a7660e85a4e4eab01efe3f2c9316, type: 2}
+    falseState: {fileID: 11400000, guid: 39747906f28f8b340b0231d5b3689f31, type: 2}
   - decision: {fileID: 11400000, guid: b3f6960e77e906e438848821fd5703dd, type: 2}
     trueState: {fileID: 11400000, guid: b03d6deeb2a01584e8199527f2f8d77c, type: 2}
     falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}

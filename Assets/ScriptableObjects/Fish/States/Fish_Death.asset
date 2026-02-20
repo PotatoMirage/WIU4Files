@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fish_Death
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: f13c9948baba496489338e2e5c6b73a7, type: 2}
+  - {fileID: 11400000, guid: 27bc80dd820ed174c91980dfccad6383, type: 2}
   transitions: []

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fish_Chase
   m_EditorClassIdentifier: Assembly-CSharp::State
   actions:
-  - {fileID: 11400000, guid: 758583ac9dfbc1e4493e306e61e7ea57, type: 2}
+  - {fileID: 11400000, guid: 900534b0364e57f4289114d133448979, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: ca229c9c870719b40b82b1c63cf04b12, type: 2}
-    trueState: {fileID: 11400000, guid: c9cf2ef9b91c8b7489e500866f2edc0b, type: 2}
-    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
+    trueState: {fileID: 11400000, guid: f5547ed49bc54d7449fa21cf573081af, type: 2}
+    falseState: {fileID: 11400000, guid: 39747906f28f8b340b0231d5b3689f31, type: 2}
   - decision: {fileID: 11400000, guid: 770dca40f2ca9cf4fbddcdfa0a107012, type: 2}
     trueState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}
     falseState: {fileID: 11400000, guid: ca8960537d760ee408a8a66f041928e1, type: 2}

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34a2238a31e4f2140b89eefa0f6749bc, type: 3}
-  m_Name: Apple
-  m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Apple
-  itemImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Script: {fileID: 11500000, guid: 76f47b05ed985b14c804a12acbd4adaa, type: 3}
+  m_Name: Flies_Jump
+  m_EditorClassIdentifier: Assembly-CSharp::Jump_Action

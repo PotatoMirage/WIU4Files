@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4887d850b6a038b40b7bb8d669a99ef9, type: 3}
+  m_Name: Fish_Hit
+  m_EditorClassIdentifier: Assembly-CSharp::State
+  actions:
+  - {fileID: 11400000, guid: 088be52f64a3e604596851e0a5896799, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: bcef6b885a7a21842802787843000451, type: 2}
+    trueState: {fileID: 11400000, guid: 8078240853bac29498e0d95c559cd0fd, type: 2}
+    falseState: {fileID: 11400000, guid: 912a31ddda5ef8a43a7c35a2eb6df186, type: 2}

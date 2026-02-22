@@ -12,6 +12,8 @@ public class FishEnemy : MonoBehaviour
     public int bleedDamagePerTick = 2;
     public int bleedTicks = 5;
     public float bleedTickInterval = 1f;
+    public float detectionRadius = 100f;
+    public LayerMask playerLayer;
 
     private bool isChasing = false;
     private bool isBleeding = false;
@@ -19,8 +21,7 @@ public class FishEnemy : MonoBehaviour
     {
         if (playerTarget == null)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null) playerTarget = player.transform;
+            FindPlayerTarget();
         }
 
         if (fishGO != null)
@@ -28,14 +29,32 @@ public class FishEnemy : MonoBehaviour
             fishGO.SetActive(false);
         }
     }
-    private void Update()
+
+    private void FindPlayerTarget()
     {
-        if (isChasing && playerTarget != null)
+        Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
+        if (hits.Length > 0)
         {
-            RotateTowardsPlayer();
-            MoveTowardsPlayer();
+            playerTarget = hits[0].transform;
         }
     }
+    private void Update()
+    {
+        if (isChasing)
+        {
+            if (playerTarget == null)
+            {
+                FindPlayerTarget();
+            }
+
+            if (playerTarget != null)
+            {
+                RotateTowardsPlayer();
+                MoveTowardsPlayer();
+            }
+        }
+    }
+
     private void RotateTowardsPlayer()
     {
         Vector3 direction = (playerTarget.position - transform.position).normalized;
@@ -46,17 +65,19 @@ public class FishEnemy : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
+
     private void MoveTowardsPlayer()
     {
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, moveSpeed * Time.deltaTime);
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
             AttackPlayer();
         }
     }
+
     private void AttackPlayer()
     {
         if (!isBleeding)
@@ -64,6 +85,7 @@ public class FishEnemy : MonoBehaviour
             StartCoroutine(ApplyBleedEffect());
         }
     }
+
     private IEnumerator ApplyBleedEffect()
     {
         isBleeding = true;
@@ -84,6 +106,7 @@ public class FishEnemy : MonoBehaviour
 
         isBleeding = false;
     }
+
     public void Appear()
     {
         if (fishGO != null)
@@ -92,6 +115,7 @@ public class FishEnemy : MonoBehaviour
         }
         isChasing = true;
     }
+
     public void Disappear()
     {
         if (fishGO != null)

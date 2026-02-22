@@ -1,21 +1,44 @@
+using System.Collections;
 using UnityEngine;
 
 public class FliesEnemy : MonoBehaviour
 {
     public float speed = 5f;
-    public float chaseDuration = 4f; // Time before the flies disperse/despawn
+    public float chaseDuration = 4f;
     public int damageAmount = 1;
+    public float scaleDuration = 0.5f;
+    public LayerMask playerLayer;
 
     private Transform target;
     private float aliveTimer = 0f;
 
-    // Called by the FrogEnemy when spawned
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
     }
 
-    void Update()
+    private void Start()
+    {
+        transform.localScale = Vector3.zero;
+        StartCoroutine(ScaleUpRoutine());
+    }
+
+    private IEnumerator ScaleUpRoutine()
+    {
+        float elapsedTime = 0f;
+        Vector3 targetScale = Vector3.one;
+
+        while (elapsedTime < scaleDuration)
+        {
+            transform.localScale = Vector3.Lerp(Vector3.zero, targetScale, elapsedTime / scaleDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = targetScale;
+    }
+
+    private void Update()
     {
         aliveTimer += Time.deltaTime;
         if (aliveTimer >= chaseDuration)
@@ -26,26 +49,18 @@ public class FliesEnemy : MonoBehaviour
 
         if (target != null)
         {
-            // Calculate a direction towards the player, applying a small random offset 
-            // every frame to simulate the erratic, creepy buzzing of a swarm.
-            Vector3 erraticOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            Vector3 erraticOffset = new(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             Vector3 direction = ((target.position + erraticOffset) - transform.position).normalized;
 
-            transform.position += direction * speed * Time.deltaTime;
-
-            // Look towards the player
+            transform.position += speed * Time.deltaTime * direction;
             transform.LookAt(target.position);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
-            Debug.Log("Flies attacked the player!");
-            // Call the player's TakeDamage function here
-
-            // Destroy flies after dealing damage
             Destroy(gameObject);
         }
     }

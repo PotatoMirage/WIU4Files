@@ -3,12 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemies
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - player
+  - Player
   - Water
   - UI
   - Non-Player
@@ -17,8 +18,8 @@ TagManager:
   - Objects
   - Environment
   - Terrain
-  - 
-  - 
+  - Collectables
+  - Trees
   - 
   - 
   - 

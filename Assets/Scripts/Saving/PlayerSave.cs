@@ -2,6 +2,20 @@ using UnityEngine;
 
 public class PlayerSave : MonoBehaviour
 {
+    public static PlayerSave Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,13 +28,32 @@ public class PlayerSave : MonoBehaviour
 
     }
 
-    public void FirstSave()
+    public void FirstSave(string value)
     {
         //if one of it does not exist on first open then set them
         if (!PlayerPrefs.HasKey("MasterVolume"))
         {
-            SaveMasterVolume(100f);
+            resetAudio();
         }
+        else if (!PlayerPrefs.HasKey("KeyBinds"))
+        {
+            SaveKeybinds(value);
+        }
+    }
+
+    public void resetAudio() //reset the audio to the origional
+    {
+        SaveMasterVolume(1f);
+        SaveBGMVolume(1f);
+    }
+
+
+    public void resetprogress() //restart progress
+    {
+        SaveCurrentCheckpoint(-1);
+        SaveCurrentStage(0);
+        SaveMaxHealth(100);
+        SaveMaxDamage(2);
     }
 
     public void SaveMasterVolume(float value) //save master volume settings
@@ -35,9 +68,9 @@ public class PlayerSave : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void SaveSFXVolume(float value) //save SFX volume settings
+    public void SaveKeybinds(string value) //save keybind settings
     {
-        PlayerPrefs.SetFloat("SFXVolume", value);
+        PlayerPrefs.SetString("KeyBinds", value);
         PlayerPrefs.Save();
     }
 
@@ -68,5 +101,56 @@ public class PlayerSave : MonoBehaviour
     {
         PlayerPrefs.SetInt("MaxDamage", value);
         PlayerPrefs.Save();
+    }
+
+    
+
+    public float GetMasterVolume() //get master volume
+    {
+        float value = PlayerPrefs.GetFloat("MasterVolume");
+        return value;
+    }
+
+    public float GetBGMVolume() //get BGM volume
+    {
+        float value = PlayerPrefs.GetFloat("BGMVolume");
+        return value;
+    }
+
+    public string GetKeyBinds()
+    {
+        string value = PlayerPrefs.GetString("KeyBinds");
+        return value;
+    }
+
+    public int GetCurrentStage()
+    {
+        int value = PlayerPrefs.GetInt("CurrentStage");
+        return value;
+    }
+
+    public int GetCurrentCheckpoint()
+    {
+        int value = PlayerPrefs.GetInt("CurrentCheckPoint");
+        return value;
+    }
+
+    public int GetInventory()
+    {
+        //int value = PlayerPrefs.GetInt("CurrentStage");
+        int value  = 0;
+        return value;
+    }
+
+    public int GetMaxHealth()
+    {
+        int value = PlayerPrefs.GetInt("MaxHealth");
+        return value;
+    }
+
+    public int GetMaxDamage()
+    {
+        int value = PlayerPrefs.GetInt("MaxDamage");
+        return value;
     }
 }

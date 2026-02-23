@@ -19,6 +19,13 @@ public class Chase_Action : Action
         }
         if (controller.animator != null)
             controller.animator.CrossFadeInFixedTime(locomotionAnimHash, 0.1f);
+
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null)
+        {
+            vfx.StartTrail();
+            vfx.StartSpearCharge();
+        }
     }
     public override void Act(StateController controller)
     {
@@ -26,5 +33,15 @@ public class Chase_Action : Action
         controller.navMeshAgent.destination = controller.chaseTarget.position;
         if (controller.animator != null)
             controller.animator.SetFloat(speedParamHash, controller.navMeshAgent.velocity.magnitude);
+    }
+
+    public override void OnExit(StateController controller)
+    {
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null)
+        {
+            vfx.StopTrail();
+            vfx.StopSpearCharge();
+        }
     }
 }

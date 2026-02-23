@@ -25,6 +25,7 @@ public class FishEnemy : MonoBehaviour
     public float detectionRadius = 100f;
     public float attackRange = 2.5f;
     public LayerMask playerLayer;
+    public PlayerMovementScript playerMovement;
 
     private bool isBleeding = false;
     private void Awake()
@@ -47,11 +48,11 @@ public class FishEnemy : MonoBehaviour
             FindPlayerTarget();
             return;
         }
-
+        
         if (currentState == FishState.HiddenIdle)
         {
-            RotateTowardsPlayer();
             MoveTowardsPlayer();
+
 
             if (Vector3.Distance(transform.position, playerTarget.position) <= attackRange)
             {
@@ -68,20 +69,9 @@ public class FishEnemy : MonoBehaviour
         }
     }
 
-    private void RotateTowardsPlayer()
-    {
-        Vector3 direction = (playerTarget.position - transform.position).normalized;
-        direction.y = 0f;
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-        }
-    }
-
     private void MoveTowardsPlayer()
     {
+        animator.Play("HiddenIdle");
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, moveSpeed * Time.deltaTime);
     }
 
@@ -99,7 +89,7 @@ public class FishEnemy : MonoBehaviour
 
         if (playerTarget != null)
         {
-            Vector3 targetPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
+            Vector3 targetPosition = new(playerTarget.position.x, 0, playerTarget.position.z);
             transform.position = targetPosition;
         }
 
@@ -151,7 +141,7 @@ public class FishEnemy : MonoBehaviour
 
         if (playerTarget != null)
         {
-            playerTarget.SendMessage("TakeDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
+            playerMovement.ChangeHealth(-10);
         }
 
         for (int i = 0; i < bleedTicks; i++)
@@ -160,7 +150,7 @@ public class FishEnemy : MonoBehaviour
 
             if (playerTarget != null)
             {
-                playerTarget.SendMessage("TakeDamage", bleedDamagePerTick, SendMessageOptions.DontRequireReceiver);
+                playerMovement.ChangeHealth(-5);
             }
         }
 

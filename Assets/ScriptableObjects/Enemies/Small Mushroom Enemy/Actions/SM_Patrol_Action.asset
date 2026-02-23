@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SM_Patrol_Action
   m_EditorClassIdentifier: Assembly-CSharp::SM_Patrol_Action
   patrolSpeed: 2
-  patrolRadius: 5
+  patrolRadius: 8
   minWaitTime: 1
-  maxWaitTime: 3
+  maxWaitTime: 2

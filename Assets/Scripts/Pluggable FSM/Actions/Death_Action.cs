@@ -18,6 +18,10 @@ public class Death_Action : Action
             controller.animator.SetFloat(speedParamHash, 0f);
             controller.animator.CrossFadeInFixedTime(deathAnimHash, 0.1f);
         }
+
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null)
+            vfx.PlayDeathEffect();
     }
 
     public override void Act(StateController controller)

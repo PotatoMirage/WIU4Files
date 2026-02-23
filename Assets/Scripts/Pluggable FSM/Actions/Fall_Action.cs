@@ -15,7 +15,7 @@ public class Fall_Action : Action
     {
         controller.navMeshAgent.enabled = false;
 
-        // *** Switch to non-kinematic so physics handles collision ***
+        
         controller.rigidBody.isKinematic = false;
         controller.rigidBody.useGravity = true;
 
@@ -28,7 +28,7 @@ public class Fall_Action : Action
 
     public override void Act(StateController controller)
     {
-        // Let Rigidbody physics handle the fall, no manual movement needed
+        
     }
 
     public override void OnExit(StateController controller)

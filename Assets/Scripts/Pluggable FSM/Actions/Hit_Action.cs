@@ -18,6 +18,10 @@ public class Hit_Action : Action
             controller.animator.SetFloat(speedParamHash, 0f);
             controller.animator.CrossFadeInFixedTime(hitAnimHash, 0.1f);
         }
+
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null)
+            vfx.PlayHitEffect();
     }
 
     public override void Act(StateController controller)

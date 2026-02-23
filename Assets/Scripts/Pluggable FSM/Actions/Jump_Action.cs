@@ -20,6 +20,10 @@ public class Jump_Action : Action
         controller.navMeshAgent.autoTraverseOffMeshLink = false;
         controller.navMeshAgent.updatePosition = false;
         controller.navMeshAgent.updateRotation = false;
+
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null)
+            vfx.PlayJumpTakeoff();
     }
 
     public override void Act(StateController controller)
@@ -61,6 +65,10 @@ public class Jump_Action : Action
                 controller.navMeshAgent.updatePosition = true;
                 controller.navMeshAgent.updateRotation = true;
                 controller.stateTimeElapsed = jumpDuration;
+
+                EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+                if (vfx != null)
+                    vfx.PlayJumpLand();
             }
         }
     }

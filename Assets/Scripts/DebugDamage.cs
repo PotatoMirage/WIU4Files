@@ -6,10 +6,13 @@ public class DebugDamage : MonoBehaviour
 
     private void Update()
     {
-        // Press D to deal damage to spider
         if (Input.GetKeyDown(KeyCode.D))
         {
             target.OnTakeDamage();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            target.OnDeath();
         }
     }
 }

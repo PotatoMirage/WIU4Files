@@ -25,6 +25,9 @@ public class Patrol_Action : Action
             controller.animator.CrossFadeInFixedTime(locomotionAnimHash, 0.1f);
         waitTimer = Random.Range(minWaitTime, maxWaitTime);
         isWaiting = true;
+
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null) vfx.StartTrail();
     }
 
     public override void Act(StateController controller)
@@ -69,5 +72,11 @@ public class Patrol_Action : Action
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
         return navHit.position;
+    }
+
+    public override void OnExit(StateController controller)
+    {
+        EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
+        if (vfx != null) vfx.StopTrail();
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         //change scenes here
+        //SceneManager.LoadScene("123");
     }
 
     //for settings page opening

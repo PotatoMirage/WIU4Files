@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d144f31aec47c244387937d8a280fa3c, type: 3}
   m_Name: SM_Dec_PlayerLost
   m_EditorClassIdentifier: Assembly-CSharp::SM_Distance_Decision
-  radius: 15
+  radius: 16

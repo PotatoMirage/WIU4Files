@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gras
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: GEOMETRY
+    m_Weight: 1
+  - m_Path: GEOMETRY/Eye_L
+    m_Weight: 1
+  - m_Path: GEOMETRY/Eye_R
+    m_Weight: 1
+  - m_Path: GEOMETRY/Original_frogShape
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Lowerjaw_jnt_01
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Lowerjaw_jnt_01/Lowerjaw_jnt_End
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Lowerjaw_jnt_01/Tongue_Base_jnt
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Lowerjaw_jnt_01/Tongue_Base_jnt/Tongue_Tip_jnt
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01/jnt_L_eye_01
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01/jnt_L_eye_01/jnt_L_eye_end
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01/jnt_R_eye_01
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01/jnt_R_eye_01/jnt_R_eye_end
+    m_Weight: 1
+  - m_Path: MAIN_OFFSET/MAIN_CTRL/COG_OFFSET/COG_CTRL/RIG/Main_frog_root_jnt/Hean_jnt/Upperjaw_jnt_01/Upperjaw_jnt_End
+    m_Weight: 1

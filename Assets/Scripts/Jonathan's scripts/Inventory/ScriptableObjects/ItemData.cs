@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData")]
+[CreateAssetMenu(fileName = "NewItemData", menuName = "Inventory/ItemData")]
 public class ItemData : ScriptableObject
 {
     public string itemName;
-    public Sprite itemImage;
+    public Sprite icon;
+    public GameObject dropPrefab;
+    public bool isConsumable;
+    public ItemEffect useEffect;
 }

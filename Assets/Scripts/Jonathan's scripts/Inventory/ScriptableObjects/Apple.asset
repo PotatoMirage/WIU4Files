@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Apple
-  itemImage: {fileID: 21300000, guid: 9c458a1b9ac0fd44a9aa1526d0f37376, type: 3}
+  icon: {fileID: 21300000, guid: 15d36ce86c1f367439df32529d8d1505, type: 3}
+  dropPrefab: {fileID: 6482209131656293628, guid: dd6a2a23d23d56b4698d6430b06ebfd6, type: 3}
+  isConsumable: 1
+  useEffect: {fileID: 11400000, guid: 50ecc83f47f9874438aef9d96a3da7cb, type: 2}

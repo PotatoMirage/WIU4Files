@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 447a68354aa6b5841b9e51d3e9b9d224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterZone
-  fishEnemy: {fileID: 0}
+  fishEnemy: {fileID: 8761375013560373457}
   timeRequiredInWater: 5
 --- !u!65 &996680562
 BoxCollider:
@@ -10184,6 +10184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac902a0601ebfc5498e949143ed59ad6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FishEnemy
+  currentState: 0
   fishGO: {fileID: 8761375013560373456}
   playerTarget: {fileID: 1582391135}
   animator: {fileID: 2611336128844943376}
@@ -10193,6 +10194,7 @@ MonoBehaviour:
   bleedTicks: 5
   bleedTickInterval: 1
   detectionRadius: 100
+  attackRange: 2.5
   playerLayer:
     serializedVersion: 2
     m_Bits: 8

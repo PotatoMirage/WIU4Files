@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class FishEnemy : MonoBehaviour
 {
+    public enum FishState
+    {
+        HiddenIdle,
+        Emerging,
+        EmergeIdle,
+        Hiding
+    }
+
+    public FishState currentState = FishState.HiddenIdle;
+
     public GameObject fishGO;
     [SerializeField] private Transform playerTarget;
     [SerializeField] private Animator animator;
@@ -13,9 +23,9 @@ public class FishEnemy : MonoBehaviour
     public int bleedTicks = 5;
     public float bleedTickInterval = 1f;
     public float detectionRadius = 100f;
+    public float attackRange = 2.5f;
     public LayerMask playerLayer;
 
-    private bool isChasing = false;
     private bool isBleeding = false;
     private void Awake()
     {
@@ -30,6 +40,25 @@ public class FishEnemy : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (playerTarget == null)
+        {
+            FindPlayerTarget();
+            return;
+        }
+
+        if (currentState == FishState.HiddenIdle)
+        {
+            RotateTowardsPlayer();
+            MoveTowardsPlayer();
+
+            if (Vector3.Distance(transform.position, playerTarget.position) <= attackRange)
+            {
+                StartEmerge();
+            }
+        }
+    }
     private void FindPlayerTarget()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
@@ -38,27 +67,12 @@ public class FishEnemy : MonoBehaviour
             playerTarget = hits[0].transform;
         }
     }
-    private void Update()
-    {
-        if (isChasing)
-        {
-            if (playerTarget == null)
-            {
-                FindPlayerTarget();
-            }
-
-            if (playerTarget != null)
-            {
-                RotateTowardsPlayer();
-                MoveTowardsPlayer();
-            }
-        }
-    }
 
     private void RotateTowardsPlayer()
     {
         Vector3 direction = (playerTarget.position - transform.position).normalized;
-        direction.y = 0;
+        direction.y = 0f;
+
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -70,22 +84,67 @@ public class FishEnemy : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, playerTarget.position, moveSpeed * Time.deltaTime);
     }
-    private void OnTriggerEnter(Collider other)
+
+    public void Appear()
     {
-        if (((1 << other.gameObject.layer) & playerLayer) != 0)
+        if (fishGO != null)
         {
-            AttackPlayer();
+            fishGO.SetActive(true);
+        }
+
+        if (playerTarget == null)
+        {
+            FindPlayerTarget();
+        }
+
+        if (playerTarget != null)
+        {
+            Vector3 targetPosition = new Vector3(playerTarget.position.x, transform.position.y, playerTarget.position.z);
+            transform.position = targetPosition;
+        }
+
+        StartEmerge();
+    }
+
+    public void Disappear()
+    {
+        if (fishGO != null)
+        {
+            fishGO.SetActive(false);
+        }
+
+        currentState = FishState.HiddenIdle;
+        isBleeding = false;
+        StopAllCoroutines();
+    }
+    private void StartEmerge()
+    {
+        currentState = FishState.Emerging;
+        animator.Play("Emerge");
+    }
+
+    public void DealDamageEvent()
+    {
+        if (!isBleeding && playerTarget != null)
+        {
+            if (Vector3.Distance(transform.position, playerTarget.position) <= attackRange)
+            {
+                StartCoroutine(ApplyBleedEffect());
+            }
         }
     }
 
-    private void AttackPlayer()
+    public void OnEmergeComplete()
     {
-        if (!isBleeding)
-        {
-            StartCoroutine(ApplyBleedEffect());
-        }
+        currentState = FishState.Hiding;
+        animator.Play("Hide");
     }
 
+    public void OnHideComplete()
+    {
+        currentState = FishState.HiddenIdle;
+        animator.Play("HiddenIdle");
+    }
     private IEnumerator ApplyBleedEffect()
     {
         isBleeding = true;
@@ -98,6 +157,7 @@ public class FishEnemy : MonoBehaviour
         for (int i = 0; i < bleedTicks; i++)
         {
             yield return new WaitForSeconds(bleedTickInterval);
+
             if (playerTarget != null)
             {
                 playerTarget.SendMessage("TakeDamage", bleedDamagePerTick, SendMessageOptions.DontRequireReceiver);
@@ -105,25 +165,5 @@ public class FishEnemy : MonoBehaviour
         }
 
         isBleeding = false;
-    }
-
-    public void Appear()
-    {
-        if (fishGO != null)
-        {
-            fishGO.SetActive(true);
-        }
-        isChasing = true;
-    }
-
-    public void Disappear()
-    {
-        if (fishGO != null)
-        {
-            fishGO.SetActive(false);
-        }
-        isChasing = false;
-        isBleeding = false;
-        StopAllCoroutines();
     }
 }

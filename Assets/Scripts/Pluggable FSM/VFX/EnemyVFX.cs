@@ -9,6 +9,12 @@ public class EnemyVFX : MonoBehaviour
     public GameObject jumpLandEffect;
     public GameObject attackImpactEffect;
 
+    [Header("Aura VFX")]
+    public ParticleSystem auraEffect;
+
+    [Header("Dissolve Death")]
+    public GameObject deathParticlesEffect;
+
     [Header("Big Mushroom VFX")]
     public ParticleSystem spearChargeEffect;
 
@@ -81,5 +87,13 @@ public class EnemyVFX : MonoBehaviour
     {
         if (spearChargeEffect != null)
             spearChargeEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+    }
+
+    public void StopAura()
+    {
+        if (auraEffect != null)
+        {
+            auraEffect.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
     }
 }

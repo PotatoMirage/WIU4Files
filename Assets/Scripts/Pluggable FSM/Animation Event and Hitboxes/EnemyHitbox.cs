@@ -9,6 +9,7 @@ public class EnemyHitbox : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Enemy smashed the player for " + damageAmount + " damage!");
+            other.GetComponent<PlayerMovementScript>().ChangeHealth(-(int)damageAmount);
             GetComponent<Collider>().enabled = false;
         }
     }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemies
+  - PlayerProjectile
+  - EnemyProjectiles
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Terrain
   - Collectables
   - Trees
-  - 
+  - EnemyProjectiles
   - 
   - 
   - 

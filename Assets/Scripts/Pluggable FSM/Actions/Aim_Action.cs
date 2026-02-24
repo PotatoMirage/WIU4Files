@@ -7,6 +7,8 @@ public class Aim_Action : Action
 
     [Header("Aim Settings")]
     public float rotationSpeed = 5f;
+    public float pivotVerticalOffset = 0f;
+    public float minAimTime = 0.5f; // minimum time to aim before allowing shoot
 
     public override void OnEnter(StateController controller)
     {
@@ -18,9 +20,13 @@ public class Aim_Action : Action
     {
         if (controller.chaseTarget == null) return;
 
-        // Rotate to face player
+        // Get direction from enemy to player
         Vector3 dir = controller.chaseTarget.position - controller.transform.position;
-        if (dir != Vector3.zero)
+
+        if (controller.isOnWall)
+            dir.y = 0;
+
+        if (dir.sqrMagnitude > 0.001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir);
             controller.transform.rotation = Quaternion.RotateTowards(

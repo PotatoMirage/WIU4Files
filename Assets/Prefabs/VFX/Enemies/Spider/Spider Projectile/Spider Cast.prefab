@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6732527246190524855}
   - component: {fileID: 9183547883974100588}
   - component: {fileID: 8230821655314387422}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spider Cast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,11 +28,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4767033144920800257}
   - {fileID: 3361810759998779821}
+  - {fileID: 6075399938912702802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &9183547883974100588
@@ -45,7 +46,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -4907,7 +4908,7 @@ GameObject:
   - component: {fileID: 4767033144920800257}
   - component: {fileID: 1235045955141362920}
   - component: {fileID: 5807975401266219197}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WindCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9790,6 +9791,96 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!1001 &1355621789734019884
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6732527246190524855}
+    m_Modifications:
+    - target: {fileID: 315027223739610927, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_Name
+      value: Spider Projectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1165179281126259117, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057061275317223461, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3413147511789077309, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7812408088239499062, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+--- !u!4 &6075399938912702802 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5080072319174603390, guid: afd9423e0344bc34ebfac6de045f83b4, type: 3}
+  m_PrefabInstance: {fileID: 1355621789734019884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4884801474025306652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9801,6 +9892,10 @@ PrefabInstance:
     - target: {fileID: 2000891200506899705, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
       propertyPath: m_Name
       value: Flash
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000891200506899705, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7885169750266153905, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
       propertyPath: m_RootOrder
@@ -9845,6 +9940,10 @@ PrefabInstance:
     - target: {fileID: 7885169750266153905, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755419392957515937, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
+      propertyPath: stopAction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8755419392957515937, guid: b83f734407bb41f4eb091735c81f1565, type: 3}
       propertyPath: scalingMode

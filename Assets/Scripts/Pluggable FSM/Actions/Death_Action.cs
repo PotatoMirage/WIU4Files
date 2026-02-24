@@ -21,7 +21,14 @@ public class Death_Action : Action
 
         EnemyVFX vfx = controller.GetComponent<EnemyVFX>();
         if (vfx != null)
+        {
             vfx.PlayDeathEffect();
+            vfx.StopAura();
+        }
+
+        EnemyDissolve dissolve = controller.GetComponent<EnemyDissolve>();
+        if (dissolve != null)
+            dissolve.StartDissolve();
     }
 
     public override void Act(StateController controller)

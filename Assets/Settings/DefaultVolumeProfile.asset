@@ -468,6 +468,7 @@ MonoBehaviour:
   - {fileID: -6288072647309666549}
   - {fileID: 7518938298396184218}
   - {fileID: -1410297666881709256}
+  - {fileID: 3533064956871886144}
 --- !u!114 &853819529557874667
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -778,6 +779,37 @@ MonoBehaviour:
   contribution:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &3533064956871886144
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a57cf0c1f44a584a8194652338ca83e, type: 3}
+  m_Name: PaperVolume
+  m_EditorClassIdentifier: Assembly-CSharp::PaperVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  paperColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.96, g: 0.91, b: 0.78, a: 1}
+  grainAmount:
+    m_OverrideState: 1
+    m_Value: 0.08
+  inkBleed:
+    m_OverrideState: 1
+    m_Value: 0.4
+  sketchStrength:
+    m_OverrideState: 1
+    m_Value: 0.35
+  vignette:
+    m_OverrideState: 1
+    m_Value: 0.4
 --- !u!114 &3959858460715838825
 MonoBehaviour:
   m_ObjectHideFlags: 3

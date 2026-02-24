@@ -40,6 +40,49 @@ MonoBehaviour:
   maxNits:
     m_OverrideState: 1
     m_Value: 1000
+--- !u!114 &-5219443621427917467
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84134a12703852489da05c4cc014e54, type: 3}
+  m_Name: GodRaysVolume
+  m_EditorClassIdentifier: Assembly-CSharp::GodRaysVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.2
+  lightPosition:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.8}
+  rayColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0.95, b: 0.7, a: 1}
+  rayLength:
+    m_OverrideState: 1
+    m_Value: 1
+  samples:
+    m_OverrideState: 1
+    m_Value: 64
+  density:
+    m_OverrideState: 1
+    m_Value: 1
+  decay:
+    m_OverrideState: 1
+    m_Value: 0.96
+  weight:
+    m_OverrideState: 1
+    m_Value: 1
+  exposure:
+    m_OverrideState: 1
+    m_Value: 0.1
+  brightnessThreshold:
+    m_OverrideState: 1
+    m_Value: 0.3
 --- !u!114 &-4739394063302850606
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -74,6 +117,49 @@ MonoBehaviour:
   highlightsEnd:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-1920039768304305769
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22718faf8d5b0784a9a8189b585cef18, type: 3}
+  m_Name: AtmosphericFogVolume
+  m_EditorClassIdentifier: Assembly-CSharp::AtmosphericFogVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.6
+  fogStart:
+    m_OverrideState: 1
+    m_Value: 25
+  fogEnd:
+    m_OverrideState: 1
+    m_Value: 35
+  fogDensity:
+    m_OverrideState: 1
+    m_Value: 0.5
+  fogColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.78431374, g: 0.9098039, b: 0.627451, a: 1}
+  horizonBias:
+    m_OverrideState: 1
+    m_Value: 0.6
+  useHeightFog:
+    m_OverrideState: 1
+    m_Value: 1
+  heightFogStart:
+    m_OverrideState: 1
+    m_Value: 0
+  heightFogEnd:
+    m_OverrideState: 1
+    m_Value: 3
+  heightFogDensity:
+    m_OverrideState: 1
+    m_Value: 0.35
 --- !u!114 &-1267801154026944187
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -116,8 +202,8 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.5714286
-          value: 0.81122446
+          time: 0.5742049
+          value: 0.7472527
           inSlope: 0.029325863
           outSlope: 0.029325863
           tangentMode: 0
@@ -137,7 +223,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   red:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 2
       m_Loop: 0
@@ -168,7 +254,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   green:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 2
       m_Loop: 0
@@ -199,7 +285,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   blue:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 2
       m_Loop: 0
@@ -230,7 +316,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   hueVsHue:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 0
       m_Loop: 1
@@ -243,7 +329,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   hueVsSat:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 0
       m_Loop: 1
@@ -256,7 +342,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   satVsSat:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 0
       m_Loop: 0
@@ -269,7 +355,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   lumVsSat:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
       <length>k__BackingField: 0
       m_Loop: 0
@@ -296,7 +382,7 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.98786426, z: 0.951457, w: 0}
+    m_Value: {x: 0.9860508, y: 1, z: 0.9978268, w: 0}
   gamma:
     m_OverrideState: 1
     m_Value: {x: 1, y: 0.97260404, z: 0.9213745, w: 0.035026267}
@@ -321,6 +407,101 @@ MonoBehaviour:
   - {fileID: -1220659938499405468}
   - {fileID: -4739394063302850606}
   - {fileID: -1267801154026944187}
+  - {fileID: 2210476494639210665}
+  - {fileID: -1920039768304305769}
+  - {fileID: -5219443621427917467}
+  - {fileID: 5595245063099476225}
+  - {fileID: 218165142064479647}
+--- !u!114 &218165142064479647
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a57cf0c1f44a584a8194652338ca83e, type: 3}
+  m_Name: PaperVolume
+  m_EditorClassIdentifier: Assembly-CSharp::PaperVolume
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.82
+  paperColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.83137256, g: 0.9098039, b: 0.72156864, a: 1}
+  grainAmount:
+    m_OverrideState: 1
+    m_Value: 0.55
+  inkBleed:
+    m_OverrideState: 1
+    m_Value: 0.35
+  sketchStrength:
+    m_OverrideState: 1
+    m_Value: 0.7
+  vignette:
+    m_OverrideState: 1
+    m_Value: 0.55
+--- !u!114 &2210476494639210665
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.MotionBlur
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  clamp:
+    m_OverrideState: 1
+    m_Value: 0.05
+--- !u!114 &5595245063099476225
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3201ba794c84cc4f8c79031fad642ac, type: 3}
+  m_Name: WindSwayVolume
+  m_EditorClassIdentifier: Assembly-CSharp::WindSwayVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.7
+  swaySpeed:
+    m_OverrideState: 1
+    m_Value: 0.8
+  swayStrength:
+    m_OverrideState: 1
+    m_Value: 0.004
+  swayScale:
+    m_OverrideState: 1
+    m_Value: 3
+  chromaticDrift:
+    m_OverrideState: 1
+    m_Value: 0.005
+  flickerStrength:
+    m_OverrideState: 1
+    m_Value: 0.04
+  flickerSpeed:
+    m_OverrideState: 1
+    m_Value: 4
 --- !u!114 &7235379566838190425
 MonoBehaviour:
   m_ObjectHideFlags: 3

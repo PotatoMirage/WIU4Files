@@ -62,7 +62,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 40
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -135,87 +135,87 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Hip_jnt
       parentName: Rig
-      position: {x: -4.4408926e-16, y: 0.2893675, z: 0.088034526}
+      position: {x: -1.7763571e-18, y: 0.0011574699, z: 0.00035213807}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Spine_2_jnt
       parentName: Hip_jnt
-      position: {x: -0, y: 0.4035092, z: -9.06636e-14}
+      position: {x: -0, y: 0.0016140367, z: -3.626544e-16}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Spine_1_jnt
       parentName: Spine_2_jnt
-      position: {x: -0, y: 0.26822892, z: 0.0062575187}
+      position: {x: -0, y: 0.0010729156, z: 0.000025030075}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Head_jnt
       parentName: Spine_1_jnt
-      position: {x: -0, y: 0.53168833, z: -0.02269594}
+      position: {x: -0, y: 0.0021267533, z: -0.00009078376}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Head_End_jnt
       parentName: Head_jnt
-      position: {x: -0, y: 1.4315262, z: -0.09695978}
+      position: {x: -0, y: 0.0057261046, z: -0.0003878391}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Upper_arm_R_jnt
       parentName: Spine_1_jnt
-      position: {x: 0.750659, y: -0.12992556, z: -0.040422756}
+      position: {x: 0.0030026357, y: -0.0005197022, z: -0.00016169102}
       rotation: {x: -0.69161844, y: 0.72226316, z: 0.000000010966945, w: -0.0000000039553134}
       scale: {x: 1, y: 1, z: 1}
     - name: Elbow_R
       parentName: Upper_arm_R_jnt
-      position: {x: -0.00000007478894, y: -0.074771725, z: -0.0000000015756961}
+      position: {x: -2.9915576e-10, y: -0.0002990869, z: -6.3027842e-12}
       rotation: {x: 0.000000008618887, y: 8.624645e-10, z: 0.017790616, w: 0.9998418}
       scale: {x: 1, y: 1, z: 1}
     - name: Arm_End_R
       parentName: Elbow_R
-      position: {x: -0.000000065234104, y: -0.23599234, z: 0.0000000020599529}
+      position: {x: -2.609364e-10, y: -0.00094396935, z: 8.239812e-12}
       rotation: {x: 0.0000000032591145, y: 0.00000006203619, z: 0.99862283, w: 0.052463345}
       scale: {x: 1, y: 1, z: 1}
     - name: Upper_arm_L_jnt
       parentName: Spine_1_jnt
-      position: {x: -0.7506586, y: -0.12992543, z: -0.04042279}
+      position: {x: -0.0030026343, y: -0.00051970175, z: -0.00016169115}
       rotation: {x: 0.0000000039553014, y: 0.0000000109669545, z: 0.7222626, w: 0.6916189}
       scale: {x: 1, y: 1, z: 1}
     - name: Elbow_L
       parentName: Upper_arm_L_jnt
-      position: {x: -1.9208422e-18, y: 0.07477218, z: 0}
+      position: {x: -7.683369e-21, y: 0.00029908872, z: 0}
       rotation: {x: 0.0000000061996994, y: -5.987788e-10, z: 0.017791212, w: 0.9998418}
       scale: {x: 1, y: 1, z: 1}
     - name: Arm_End_L
       parentName: Elbow_L
-      position: {x: -8.9428045e-17, y: 0.2359923, z: -1.387779e-17}
+      position: {x: -3.5771216e-19, y: 0.0009439691, z: -5.551116e-20}
       rotation: {x: 0, y: 0, z: 0.99862283, w: 0.052463345}
       scale: {x: 1, y: 1, z: 1}
     - name: Upper_leg_L_jnt
       parentName: Hip_jnt
-      position: {x: -0.2120295, y: 0.0010037444, z: -0.0067426045}
+      position: {x: -0.000848118, y: 0.0000040149775, z: -0.000026970418}
       rotation: {x: 0, y: 0, z: 1, w: -6.123234e-17}
       scale: {x: 1, y: 1, z: 1}
     - name: Foot_L_jnt
       parentName: Upper_leg_L_jnt
-      position: {x: 2.1831981e-17, y: 0.17827167, z: 0.021123147}
+      position: {x: 8.732792e-20, y: 0.0007130866, z: 0.00008449258}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Foot_End__L_jnt
       parentName: Foot_L_jnt
-      position: {x: -0, y: 0.11114469, z: -0.021123147}
+      position: {x: -0, y: 0.00044457876, z: -0.00008449258}
       rotation: {x: 0, y: 0, z: 1, w: 6.123234e-17}
       scale: {x: 1, y: 1, z: 1}
     - name: Upper_leg_R_jnt
       parentName: Hip_jnt
-      position: {x: 0.21203002, y: 0.0010035143, z: -0.0067426334}
+      position: {x: 0.0008481201, y: 0.000004014057, z: -0.000026970534}
       rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
       scale: {x: 1, y: 1, z: 1}
     - name: Foot_R_jnt
       parentName: Upper_leg_R_jnt
-      position: {x: -0, y: -0.17827101, z: -0.0211231}
+      position: {x: -0, y: -0.000713084, z: -0.00008449239}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Foot_End__R_jnt
       parentName: Foot_R_jnt
-      position: {x: -0, y: -0.11114511, z: 0.0211231}
+      position: {x: -0, y: -0.00044458045, z: 0.00008449239}
       rotation: {x: -1.8369701e-16, y: 6.1232336e-17, z: 1, w: -6.123234e-17}
       scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
@@ -225,7 +225,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 100
+    globalScale: 0.39999998
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

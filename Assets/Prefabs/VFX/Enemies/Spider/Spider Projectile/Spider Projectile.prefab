@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 211348829209718530}
   - component: {fileID: 3348327604380412276}
   - component: {fileID: 2189556606426928650}
-  m_Layer: 0
+  - component: {fileID: 2049746992177389350}
+  m_Layer: 14
   m_Name: Spider Projectile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectiles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +63,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.33
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -4912,10 +4913,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d29369d7b62729439ff69fcc2504121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpiderProjectile
-  moveSpeed: 10
+  moveSpeed: 15
   lifetime: 5
   damageAmount: 10
   impactEffect: {fileID: 2327102579080002057, guid: 67fe4ff493f9cd54fb27509991fb7b65, type: 3}
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!65 &2189556606426928650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4931,12 +4938,39 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.25, y: 0.25, z: 0.25}
-  m_Center: {x: 0, y: 0, z: -0.1}
+  m_Size: {x: 0.1, y: 0.1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: -0.11}
+--- !u!54 &2049746992177389350
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315027223739610927}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &972295691813769125
 GameObject:
   m_ObjectHideFlags: 0
@@ -4948,7 +4982,7 @@ GameObject:
   - component: {fileID: 5461765892823229472}
   - component: {fileID: 3413147511789077309}
   - component: {fileID: 2696531277088723905}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WindLinesInner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4993,7 +5027,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.33
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -9841,7 +9875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8782680774803642823}
   - component: {fileID: 3629367890179856867}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WindTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9984,7 +10018,7 @@ GameObject:
   - component: {fileID: 1393135309707216222}
   - component: {fileID: 1165179281126259117}
   - component: {fileID: 5154619910884037413}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WindBulletOuter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10029,7 +10063,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.33
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -14878,7 +14912,7 @@ GameObject:
   - component: {fileID: 332666513243227234}
   - component: {fileID: 7812408088239499062}
   - component: {fileID: 4711805941364804112}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WindBlast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14923,7 +14957,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0
+    scalar: 0.33
     minScalar: 0
     maxCurve:
       serializedVersion: 2

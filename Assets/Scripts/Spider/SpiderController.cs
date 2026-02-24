@@ -6,4 +6,5 @@ public class SpiderController : MonoBehaviour
     public int hitsToFall = 3;
     [HideInInspector] public int currentWallHits = 0;
     public State wallFallState;
+    public State wallHitState;
 }

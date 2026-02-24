@@ -13,11 +13,12 @@ public class WorldSpaceHealthBar : MonoBehaviour
     {
         mainCamera = Camera.main;
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-
+        
         if (playerObject != null)
         {
             playerTransform = playerObject.transform;
         }
+        this.GetComponent<Canvas>().worldCamera = mainCamera;
     }
     private void LateUpdate()
     {
@@ -41,6 +42,7 @@ public class WorldSpaceHealthBar : MonoBehaviour
     }
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
-        healthSlider.value = currentHealth / maxHealth;
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = currentHealth;
     }
 }

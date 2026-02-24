@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Press "F" to instantly kill the player for testing purposes
-        if (interactAction.WasPressedThisFrame())
-            playerMovement.ChangeHealth(-playerMovement.maxHealth);
+        //if (interactAction.WasPressedThisFrame())
+        //    playerMovement.ChangeHealth(-playerMovement.maxHealth);
     }
 }

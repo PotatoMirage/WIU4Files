@@ -1,8 +1,7 @@
-// PlayerMovementScript.cs
-// Made by: Heiy Tan
-
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -38,9 +37,20 @@ public class PlayerMovementScript : MonoBehaviour
 
     private InputAction moveAction, crouchAction, jumpAction, rollAction;
     private Vector2 moveInput;
-    private bool isGrounded, isCrouching, isReadyJump, isJumping, isRolling, isFalling, isLanding, isDead, wasMeleeAttacking;
-    private float verticalVelocity, jumpSpeedMultiplier = 1.0f, gravityMultiplier = 1.0f, fallStartY, meleeDashTimer;
+    private bool isGrounded, isCrouching, isReadyJump, isJumping, isRolling, isFalling, isLanding, isDead, isHitStunned, wasMeleeAttacking;
+    private float verticalVelocity, jumpSpeedMultiplier = 1.0f, gravityMultiplier = 1.0f, fallStartY, meleeDashTimer, hitStunCooldownTimer;
     private string currentAnimation;
+
+
+    [Header("Debuff Effects")]
+    public GameObject debuffVFXPrefab;
+
+    private float debuffTimer = 0f;
+    private float debuffSpeedMultiplier = 1f;
+    private float baseWalkSpeed;
+    private float baseCrouchSpeed;
+    private float baseRollSpeed;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,6 +59,10 @@ public class PlayerMovementScript : MonoBehaviour
         crouchAction = playerInput.actions["Crouch"];
         jumpAction = playerInput.actions["Jump"];
         rollAction = playerInput.actions["Roll"];
+
+        baseWalkSpeed = walkSpeed;
+        baseCrouchSpeed = crouchSpeed;
+        baseRollSpeed = rollSpeed;
 
         currentAnimation = "Player_Idle";
         animator.Play("Player_Idle");
@@ -60,7 +74,7 @@ public class PlayerMovementScript : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
 
         // If the player is dead, rolling or landing, ignores every input
-        if (isDead || isRolling || isLanding)
+        if (isDead || isRolling || isLanding || isHitStunned)
         {
             if (isDead && !isGrounded) // Still affected by gravity though (as you should)
                 verticalVelocity += gravity * Time.deltaTime;
@@ -81,6 +95,9 @@ public class PlayerMovementScript : MonoBehaviour
 
         if (meleeDashTimer > 0)
             meleeDashTimer -= Time.deltaTime;
+
+        if (hitStunCooldownTimer > 0)
+            hitStunCooldownTimer -= Time.deltaTime;
 
         // Adjust CharacterController's height depending if the player is crouching or not (aiming ignored)
         if (crouchAction.WasPressedThisFrame() && isGrounded && !playerAttack.IsAiming && !playerAttack.IsMeleeAttacking)
@@ -174,8 +191,8 @@ public class PlayerMovementScript : MonoBehaviour
             }
         }
 
-        // Blocks movement animations while melee attacking
-        if (isGrounded && !isJumping && !isReadyJump && !isRolling && !isLanding && !playerAttack.IsMeleeAttacking)
+        // Blocks movement animations while melee attacking or hit stunned
+        if (isGrounded && !isJumping && !isReadyJump && !isRolling && !isLanding && !playerAttack.IsMeleeAttacking && !isHitStunned)
         {
             Vector2 animInput = playerAttack.IsAiming ? new Vector2(moveInput.y, moveInput.x) : moveInput;
             PlayAnimation(GetPlayerAnimationState(animInput));
@@ -205,11 +222,34 @@ public class PlayerMovementScript : MonoBehaviour
 
         moveDirection.y = verticalVelocity;
         controller.Move(moveDirection * Time.deltaTime);
+
+
+        if (debuffTimer > 0)
+        {
+            debuffTimer -= Time.deltaTime;
+
+            // Apply multiplier against BASE speeds, not current speeds
+            walkSpeed = baseWalkSpeed * debuffSpeedMultiplier;
+            crouchSpeed = baseCrouchSpeed * debuffSpeedMultiplier;
+            rollSpeed = baseRollSpeed * debuffSpeedMultiplier;
+        }
+        else
+        {
+            // Always restore base speeds when debuff expires
+            walkSpeed = baseWalkSpeed;
+            crouchSpeed = baseCrouchSpeed;
+            rollSpeed = baseRollSpeed;
+            debuffSpeedMultiplier = 1f;
+        }
     }
 
     public void SetHealth(int amount)
     {
+        int previous = health;
         health = Mathf.Clamp(amount, 0, maxHealth);
+
+        if (health < previous && health > 0 && hitStunCooldownTimer <= 0)
+            StartCoroutine(HitStunAnimation());
 
         if (health == 0)
             TriggerDeath();
@@ -232,8 +272,11 @@ public class PlayerMovementScript : MonoBehaviour
 
     void TriggerDeath()
     {
-        isDead = true;
-        animator.CrossFadeInFixedTime(Random.value < 0.5f ? "Player_DeathOne" : "Player_DeathTwo", 0.25f);
+        if (!IsDead)
+        {
+            isDead = true;
+            animator.CrossFadeInFixedTime(Random.value < 0.5f ? "Player_DeathOne" : "Player_DeathTwo", 0.25f);
+        }
     }
 
     void PlayAnimation(string animationName)
@@ -344,6 +387,30 @@ public class PlayerMovementScript : MonoBehaviour
         isLanding = false;
     }
 
+    System.Collections.IEnumerator HitStunAnimation()
+    {
+        isHitStunned = true;
+        hitStunCooldownTimer = 1.0f;
+
+        animator.CrossFadeInFixedTime(Random.value < 0.5f ? "Player_AttackedOne" : "Player_AttackedTwo", 0.1f);
+        yield return new WaitForSeconds(0.5f);
+
+        isHitStunned = false;
+        currentAnimation = "";
+    }
+
+    public void ApplyDebuff(float duration, float speedMultiplier)
+    {
+        debuffTimer = duration;
+        debuffSpeedMultiplier = speedMultiplier;
+
+        if (debuffVFXPrefab != null)
+        {
+            GameObject vfx = Instantiate(debuffVFXPrefab, transform);
+            Destroy(vfx, duration);
+        }
+    }
+
     public void ChangeHealth(int amount) => SetHealth(health + amount);
     public void StartMeleeDash() => meleeDashTimer = 0.2f;
     public bool IsRolling => isRolling;
@@ -351,5 +418,6 @@ public class PlayerMovementScript : MonoBehaviour
     public bool IsReadyJump => isReadyJump;
     public bool IsLanding => isLanding;
     public bool IsCrouching => isCrouching;
+    public bool IsHitStunned => isHitStunned;
     public bool IsDead => isDead;
 }

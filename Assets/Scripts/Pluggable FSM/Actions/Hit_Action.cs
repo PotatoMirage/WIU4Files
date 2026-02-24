@@ -6,6 +6,10 @@ public class Hit_Action : Action
     private readonly int hitAnimHash = Animator.StringToHash("Hit");
     private readonly int speedParamHash = Animator.StringToHash("Speed");
 
+    [Header("States to return to")]
+    public State wallReturnState;    // assign Spider_Aim
+    public State groundReturnState;  // assign Spider_Chase
+
     public override void OnEnter(StateController controller)
     {
         if (controller.navMeshAgent != null && controller.navMeshAgent.enabled)
@@ -13,6 +17,7 @@ public class Hit_Action : Action
             controller.navMeshAgent.isStopped = true;
             controller.navMeshAgent.velocity = Vector3.zero;
         }
+
         if (controller.animator != null)
         {
             controller.animator.SetFloat(speedParamHash, 0f);
@@ -24,8 +29,5 @@ public class Hit_Action : Action
             vfx.PlayHitEffect();
     }
 
-    public override void Act(StateController controller)
-    {
-        
-    }
+    public override void Act(StateController controller) { }
 }

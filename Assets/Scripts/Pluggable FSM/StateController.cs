@@ -12,9 +12,9 @@ public class StateController : MonoBehaviour
     public State deathState;
 
     [Header("Spider Specific")]
-    public Transform treeTopPoint;
-    public Transform treeBottomPoint;
+    public Transform lookPoint;
     public Transform projectileSpawnPoint;
+    public Collider spiderCollider;
     public bool isOnWall = true;
     public bool startsOnWall = false;
 
@@ -81,7 +81,6 @@ public class StateController : MonoBehaviour
     {
         if (!aiActive) return;
 
-        // Check if this is a spider
         SpiderController spider = GetComponent<SpiderController>();
 
         if (isOnWall && spider != null)
@@ -96,8 +95,8 @@ public class StateController : MonoBehaviour
             }
             else
             {
-                if (hitState != null)
-                    TransitionToState(hitState);
+                if (spider.wallHitState != null)
+                    TransitionToState(spider.wallHitState);
             }
         }
         else

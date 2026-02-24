@@ -74,6 +74,49 @@ MonoBehaviour:
   highlightsEnd:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-4456992523297493277
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22718faf8d5b0784a9a8189b585cef18, type: 3}
+  m_Name: AtmosphericFogVolume
+  m_EditorClassIdentifier: Assembly-CSharp::AtmosphericFogVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.92
+  fogStart:
+    m_OverrideState: 1
+    m_Value: 3
+  fogEnd:
+    m_OverrideState: 1
+    m_Value: 15
+  fogDensity:
+    m_OverrideState: 1
+    m_Value: 0.9
+  fogColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.101960786, g: 0.1254902, b: 0.1882353, a: 1}
+  horizonBias:
+    m_OverrideState: 1
+    m_Value: 0.8
+  useHeightFog:
+    m_OverrideState: 1
+    m_Value: 1
+  heightFogStart:
+    m_OverrideState: 1
+    m_Value: 0
+  heightFogEnd:
+    m_OverrideState: 1
+    m_Value: 2
+  heightFogDensity:
+    m_OverrideState: 1
+    m_Value: 0.5
 --- !u!114 &-1267801154026944187
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -322,6 +365,53 @@ MonoBehaviour:
   - {fileID: -4739394063302850606}
   - {fileID: -1267801154026944187}
   - {fileID: 1606000242549079847}
+  - {fileID: -4456992523297493277}
+  - {fileID: 756121541679462923}
+  - {fileID: 4548382590705962907}
+  - {fileID: 5335983735721030052}
+--- !u!114 &756121541679462923
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84134a12703852489da05c4cc014e54, type: 3}
+  m_Name: GodRaysVolume
+  m_EditorClassIdentifier: Assembly-CSharp::GodRaysVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.3
+  lightPosition:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.8}
+  rayColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.5019608, g: 0.5647059, b: 0.6901961, a: 1}
+  rayLength:
+    m_OverrideState: 1
+    m_Value: 0.3
+  samples:
+    m_OverrideState: 1
+    m_Value: 64
+  density:
+    m_OverrideState: 1
+    m_Value: 0.5
+  decay:
+    m_OverrideState: 1
+    m_Value: 0.97
+  weight:
+    m_OverrideState: 1
+    m_Value: 0.3
+  exposure:
+    m_OverrideState: 1
+    m_Value: 0.2
+  brightnessThreshold:
+    m_OverrideState: 1
+    m_Value: 0.85
 --- !u!114 &1606000242549079847
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -372,6 +462,71 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &4548382590705962907
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3201ba794c84cc4f8c79031fad642ac, type: 3}
+  m_Name: WindSwayVolume
+  m_EditorClassIdentifier: Assembly-CSharp::WindSwayVolume
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.65
+  swaySpeed:
+    m_OverrideState: 1
+    m_Value: 1.2
+  swayStrength:
+    m_OverrideState: 1
+    m_Value: 0.005
+  swayScale:
+    m_OverrideState: 1
+    m_Value: 3.5
+  chromaticDrift:
+    m_OverrideState: 1
+    m_Value: 0.0001
+  flickerStrength:
+    m_OverrideState: 1
+    m_Value: 0.02
+  flickerSpeed:
+    m_OverrideState: 1
+    m_Value: 3
+--- !u!114 &5335983735721030052
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a57cf0c1f44a584a8194652338ca83e, type: 3}
+  m_Name: PaperVolume
+  m_EditorClassIdentifier: Assembly-CSharp::PaperVolume
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.92
+  paperColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.78431374, g: 0.7372549, b: 0.61960787, a: 1}
+  grainAmount:
+    m_OverrideState: 1
+    m_Value: 0.65
+  inkBleed:
+    m_OverrideState: 1
+    m_Value: 0.45
+  sketchStrength:
+    m_OverrideState: 1
+    m_Value: 0.85
+  vignette:
+    m_OverrideState: 1
+    m_Value: 0.005
 --- !u!114 &7235379566838190425
 MonoBehaviour:
   m_ObjectHideFlags: 3

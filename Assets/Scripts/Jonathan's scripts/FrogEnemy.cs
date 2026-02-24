@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class FrogEnemy : MonoBehaviour
 {
+    public EnemyVFX enemyVFX;
+
+
     public float emergeRadius = 10f;
     public float hideRadius = 15f;
     public float hideDelay = 3f;
@@ -161,6 +164,7 @@ public class FrogEnemy : MonoBehaviour
         {
             yield return null;
         }
+        yield return new WaitForSeconds(1.5f);
 
         if (frogAnimator != null)
         {
@@ -195,6 +199,8 @@ public class FrogEnemy : MonoBehaviour
     {
         EnableTongueCollider();
 
+        bool impactPlayed = false;
+
         while (isAttacking)
         {
             if (tongueTipBone != null && mouthSpawnPoint != null && dynamicTongueCollider != null)
@@ -205,13 +211,22 @@ public class FrogEnemy : MonoBehaviour
                 dynamicTongueCollider.transform.position = mouthSpawnPoint.position + (direction * 0.5f);
 
                 if (direction != Vector3.zero)
-                {
                     dynamicTongueCollider.transform.rotation = Quaternion.LookRotation(direction);
-                }
 
                 Vector3 currentSize = dynamicTongueCollider.size;
-                currentSize.z = distance;
+                currentSize.z = distance *3f;
                 dynamicTongueCollider.size = currentSize;
+
+                if (!impactPlayed)
+                {
+                    // Only raycast against player layer
+                    if (Physics.Raycast(mouthSpawnPoint.position, direction.normalized, out RaycastHit hit, distance, playerLayer))
+                    {
+                        impactPlayed = true;
+                        if (enemyVFX != null)
+                            enemyVFX.PlayAttackImpact(hit.point); // VFX now only plays when hitting the player
+                    }
+                }
             }
             yield return null;
         }
@@ -222,6 +237,9 @@ public class FrogEnemy : MonoBehaviour
     public void OnTongueFullyExtended()
     {
         StopCoroutine(nameof(HoldTongueRoutine));
+
+
+
         StartCoroutine(nameof(HoldTongueRoutine));
     }
 
@@ -290,9 +308,14 @@ public class FrogEnemy : MonoBehaviour
         DisableTongueCollider();
         StopAllCoroutines();
         StartCoroutine(StunRoutine());
+
+        if (enemyVFX != null)
+            enemyVFX.PlayHitEffect();
     }
     public void OnEnemyDeath()
     {
+        if (isDead) return;
+
         isDead = true;
         StopAllCoroutines();
 
@@ -312,6 +335,19 @@ public class FrogEnemy : MonoBehaviour
             tongueCollider.enabled = false;
         }
 
-        Destroy(gameObject, 3f);
+        if (enemyVFX != null) enemyVFX.StopAura();
+        if (enemyVFX != null) enemyVFX.PlayDeathEffect();
+
+
+        EnemyDissolve dissolve = GetComponent<EnemyDissolve>();
+        if (dissolve != null)
+        {
+            if (dissolve.enemyVFX == null) dissolve.enemyVFX = enemyVFX;
+            dissolve.StartDissolve();
+        }
+        else
+        {
+            Destroy(gameObject, 3f);
+        }
     }
 }

@@ -1,6 +1,3 @@
-// PlayerAttackScript.cs
-// Made by: Heiy Tan
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,7 +56,7 @@ public class PlayerAttackScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool isActionBlocked = playerMovement.IsRolling || playerMovement.IsReadyJump || playerMovement.IsJumping || playerMovement.IsLanding || playerMovement.IsDead;
+        bool isActionBlocked = playerMovement.IsRolling || playerMovement.IsReadyJump || playerMovement.IsJumping || playerMovement.IsLanding || playerMovement.IsHitStunned || playerMovement.IsDead;
 
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;

@@ -8,10 +8,16 @@ public class Distance_Decision : Decision
 
     public override bool Decide(StateController controller)
     {
-        if (controller.chaseTarget == null) return false;
+        if (controller.chaseTarget == null)
+            return false;
+
+        // Stop chasing the flipping player if it dies
+        PlayerMovementScript playerMovement = controller.chaseTarget.GetComponent<PlayerMovementScript>();
+        if (playerMovement != null && playerMovement.IsDead)
+            return false;
 
         float distance = Vector3.Distance(controller.transform.position, controller.chaseTarget.position);
-
+        
         // Returns true if the target is inside the radius
         return distance <= radius;
     }

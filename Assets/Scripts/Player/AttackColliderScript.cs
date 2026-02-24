@@ -1,6 +1,3 @@
-// AttackColliderScript.cs
-// Made by: Heiy Tan
-
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -17,7 +14,14 @@ public class AttackColliderScript : MonoBehaviour
             return;
 
         hitTargets.Add(other.gameObject);
+        EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+
+        if (enemyHealth != null)
+        {
+            enemyHealth.TakeDamage(meleeDamage);
+        }
         Debug.Log("Player has dealt " + meleeDamage + " damage to " + other.gameObject.name);
+
     }
 
     void OnEnable() => hitTargets.Clear();

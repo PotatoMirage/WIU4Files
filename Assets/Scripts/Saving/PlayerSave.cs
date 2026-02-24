@@ -28,17 +28,23 @@ public class PlayerSave : MonoBehaviour
 
     }
 
-    public void FirstSave(string value)
+    public void FirstSave()
     {
         //if one of it does not exist on first open then set them
-        if (!PlayerPrefs.HasKey("MasterVolume"))
+        if (!PlayerPrefs.HasKey("MasterVolume") && !PlayerPrefs.HasKey("BGMVolume"))
         {
             resetAudio();
         }
-        else if (!PlayerPrefs.HasKey("KeyBinds"))
+        
+        if (!PlayerPrefs.HasKey("CurrentStage"))
         {
-            SaveKeybinds(value);
+            resetprogress();
         }
+    }
+
+    public void resetkeybinds(string value)
+    {
+        SaveKeybinds(value);
     }
 
     public void resetAudio() //reset the audio to the origional

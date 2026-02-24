@@ -61,6 +61,13 @@ public class FliesEnemy : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
+            PlayerMovementScript player = other.GetComponent<PlayerMovementScript>();
+            if (player != null)
+            {
+                // Trigger debuff on player
+                player.ApplyDebuff(3f, 0.5f);
+            }
+
             Destroy(gameObject);
         }
     }

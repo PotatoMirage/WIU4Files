@@ -57,7 +57,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1cf2d2df53541a7438645847e47e94ac, type: 2}
+  - {fileID: 2100000, guid: 685329dd1e667184dbe452a441d06d3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 2408054800915304192}
   - component: {fileID: 8945543000390850813}
   - component: {fileID: 6906448240203978690}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,6 +192,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerMovement: {fileID: 0}
+  hiddenDepth: 1
 --- !u!65 &2408054800915304192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &6906448240203978690
 MonoBehaviour:
@@ -255,7 +256,7 @@ MonoBehaviour:
   attackDamage: 10
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!1 &299985567574105954
 GameObject:
   m_ObjectHideFlags: 0

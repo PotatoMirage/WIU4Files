@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class FrogEnemy : MonoBehaviour
 {
-    public int maxHealth = 3;
     public float emergeRadius = 10f;
     public float hideRadius = 15f;
     public float hideDelay = 3f;
@@ -23,7 +22,6 @@ public class FrogEnemy : MonoBehaviour
     public Collider mainCollider;
     public Animator frogAnimator;
 
-    private int currentHealth;
     private Transform playerTarget;
     private bool isEmerged = false;
     private bool isFullyEmerged = false;
@@ -33,11 +31,6 @@ public class FrogEnemy : MonoBehaviour
     private float timeOutOfRange = 0f;
     private float lastAttackTime = 0f;
     private BoxCollider dynamicTongueCollider;
-    private void Awake()
-    {
-        currentHealth = maxHealth;
-    }
-
     private void Start()
     {
         isEmerged = false;
@@ -264,32 +257,41 @@ public class FrogEnemy : MonoBehaviour
     {
         isAttacking = false;
     }
-
-    public void TakeDamage(int damage)
+    public void EnableTongueCollider()
     {
-        if (isDead || !isFullyEmerged) return;
-
-        currentHealth -= damage;
-
-        if (currentHealth <= 0)
+        if (tongueCollider != null)
         {
-            Die();
-        }
-        else
-        {
-            isAttacking = false;
-            if (frogAnimator != null)
-            {
-                frogAnimator.speed = 1f;
-                frogAnimator.SetTrigger("GotHit");
-            }
-            DisableTongueCollider();
-            StopAllCoroutines();
-            StartCoroutine(StunRoutine());
+            tongueCollider.enabled = true;
         }
     }
 
-    private void Die()
+    public void DisableTongueCollider()
+    {
+        if (tongueCollider != null)
+        {
+            tongueCollider.enabled = false;
+        }
+    }
+    public void OnEnemyHit()
+    {
+        if (isDead || !isFullyEmerged)
+        {
+            return;
+        }
+
+        isAttacking = false;
+
+        if (frogAnimator != null)
+        {
+            frogAnimator.speed = 1f;
+            frogAnimator.SetTrigger("GotHit");
+        }
+
+        DisableTongueCollider();
+        StopAllCoroutines();
+        StartCoroutine(StunRoutine());
+    }
+    public void OnEnemyDeath()
     {
         isDead = true;
         StopAllCoroutines();
@@ -311,21 +313,5 @@ public class FrogEnemy : MonoBehaviour
         }
 
         Destroy(gameObject, 3f);
-    }
-
-    public void EnableTongueCollider()
-    {
-        if (tongueCollider != null)
-        {
-            tongueCollider.enabled = true;
-        }
-    }
-
-    public void DisableTongueCollider()
-    {
-        if (tongueCollider != null)
-        {
-            tongueCollider.enabled = false;
-        }
     }
 }

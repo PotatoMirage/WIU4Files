@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647a8b14b0b87154dbc47389ad4aafd1, type: 3}
   m_Name: Damage
   m_EditorClassIdentifier: Assembly-CSharp::PowerUps
-  Duration: 10
-  effect: 5
-  buff: Damage
-  pernemant: 0
+  duration: 15
+  effectAmount: 10
+  buffType: Damage
+  isPermanent: 0

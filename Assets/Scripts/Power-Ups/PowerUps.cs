@@ -1,33 +1,21 @@
-using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PowerUps", menuName = "Scriptable Objects/PowerUps")]
-public class PowerUps : ScriptableObject
+[CreateAssetMenu(fileName = "PowerUps", menuName = "Inventory/Effects/PowerUp")]
+public class PowerUps : ItemEffect
 {
-    [SerializeField] private float Duration = 0f; //for duration of power-up
-    [SerializeField] private int effect = 0; //for amount from effect
-    [SerializeField] private string buff = "test"; //for affecting which kind of stat
-    [SerializeField] private bool pernemant = false; //for pernemant buffs and non pernemant ones
+    public float duration;
+    public int effectAmount;
+    public string buffType;
+    public bool isPermanent;
+    public Sprite buffIcon;
 
-
-    //getters for the values
-    public float durationgettier()
+    public override void Execute(GameObject user)
     {
-        return Duration;
-    }
+        PlayerPowerUpHandler handler = user.GetComponent<PlayerPowerUpHandler>();
 
-    public int effectgetter()
-    {
-        return effect;
-    }
-
-    public string buffgetter()
-    {
-        return buff;
-    }
-
-    public bool pernemantgetter()
-    {
-        return pernemant;
+        if (handler != null)
+        {
+            handler.ApplyBuff(buffType, effectAmount, duration, isPermanent, buffIcon);
+        }
     }
 }

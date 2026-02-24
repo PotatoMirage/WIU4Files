@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647a8b14b0b87154dbc47389ad4aafd1, type: 3}
   m_Name: MaxHealth
   m_EditorClassIdentifier: Assembly-CSharp::PowerUps
-  Duration: 0
-  effect: 10
-  buff: MaxHealth
-  pernemant: 1
+  duration: 0
+  effectAmount: 5
+  buffType: Health
+  isPermanent: 1

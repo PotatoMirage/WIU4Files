@@ -12,11 +12,16 @@ public class CheckPointManager : MonoBehaviour
     void Update()
     {
         for (int i = 0; i < checkpoints.Length; i++)
-        {// loop through 
+        {
             if (checkpoints[i].GetInsideCheckpoint())
             {
                 PlayerSave.Instance.SaveCurrentCheckpoint(i);
-                //save the reset (etc. max health, damage, inv)
+
+                HotbarInventory hotbar = Object.FindAnyObjectByType<HotbarInventory>();
+                if (hotbar != null)
+                {
+                    hotbar.SaveInventory();
+                }
             }
         }
     }

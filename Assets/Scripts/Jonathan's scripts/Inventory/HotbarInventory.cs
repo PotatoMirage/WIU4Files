@@ -4,69 +4,70 @@ using System.Collections.Generic;
 
 public class HotbarInventory : MonoBehaviour
 {
-    public ItemData[] slots = new ItemData[9];
+    public ItemData[] slots = new ItemData[5];
     public int selectedIndex = 0;
     public HotbarUI uiManager;
     public float dropForce = 5f;
     public float dropUpForce = 2f;
     public Transform dropPoint;
 
-    private InputSystem_Actions inputActions;
-    private List<WorldItem> nearbyItems = new();
+    private PlayerInput playerInput;
+    private InputAction interactAction;
+    private List<WorldItem> nearbyItems = new List<WorldItem>();
 
     private void Awake()
     {
-        inputActions = new InputSystem_Actions();
+        playerInput = GetComponent<PlayerInput>();
+        interactAction = playerInput.actions["Interact"];
     }
 
     private void OnEnable()
     {
-        inputActions.Player.Enable();
-        inputActions.Player.Interact.performed += OnInteract;
+        interactAction.performed += OnInteract;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Interact.performed -= OnInteract;
-        inputActions.Player.Disable();
+        interactAction.performed -= OnInteract;
     }
 
     private void Start()
     {
-        uiManager.UpdateSelection(selectedIndex);
-        for (int i = 0; i < 9; i++)
+        LoadInventory();
+
+        if (uiManager != null)
         {
-            uiManager.UpdateSlot(i, slots[i]);
+            uiManager.UpdateSelection(selectedIndex);
+
+            for (int i = 0; i < 5; i++)
+            {
+                uiManager.UpdateSlot(i, slots[i]);
+            }
         }
     }
     private void Update()
     {
         HandleHotbarInput();
         HandleDropInput();
+        HandleScrollInput();
     }
 
     private void HandleHotbarInput()
     {
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        if (playerInput == null) return;
 
-        if (keyboard.digit1Key.wasPressedThisFrame) SelectSlot(0);
-        if (keyboard.digit2Key.wasPressedThisFrame) SelectSlot(1);
-        if (keyboard.digit3Key.wasPressedThisFrame) SelectSlot(2);
-        if (keyboard.digit4Key.wasPressedThisFrame) SelectSlot(3);
-        if (keyboard.digit5Key.wasPressedThisFrame) SelectSlot(4);
-        if (keyboard.digit6Key.wasPressedThisFrame) SelectSlot(5);
-        if (keyboard.digit7Key.wasPressedThisFrame) SelectSlot(6);
-        if (keyboard.digit8Key.wasPressedThisFrame) SelectSlot(7);
-        if (keyboard.digit9Key.wasPressedThisFrame) SelectSlot(8);
+        if (playerInput.actions["Slot1"].WasPressedThisFrame()) SelectSlot(0);
+        if (playerInput.actions["Slot2"].WasPressedThisFrame()) SelectSlot(1);
+        if (playerInput.actions["Slot3"].WasPressedThisFrame()) SelectSlot(2);
+        if (playerInput.actions["Slot4"].WasPressedThisFrame()) SelectSlot(3);
+        if (playerInput.actions["Slot5"].WasPressedThisFrame()) SelectSlot(4);
     }
 
     private void HandleDropInput()
     {
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        if (playerInput == null) return;
 
-        if (keyboard.qKey.wasPressedThisFrame)
+        if (playerInput.actions["Drop"].WasPressedThisFrame())
         {
             DropCurrentItem();
         }
@@ -123,7 +124,7 @@ public class HotbarInventory : MonoBehaviour
     {
         bool itemAdded = false;
 
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (slots[i] == null)
             {
@@ -195,6 +196,93 @@ public class HotbarInventory : MonoBehaviour
             {
                 nearbyItems.Remove(worldItem);
             }
+        }
+    }
+    public void SaveInventory()
+    {
+        if (PlayerSave.Instance == null)
+        {
+            return;
+        }
+
+        string[] itemNames = new string[5];
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (slots[i] != null)
+            {
+                itemNames[i] = slots[i].itemName;
+            }
+            else
+            {
+                itemNames[i] = "";
+            }
+        }
+
+        string inventoryData = string.Join(",", itemNames);
+        PlayerSave.Instance.SaveInventory(inventoryData);
+    }
+    public void LoadInventory()
+    {
+        if (PlayerSave.Instance == null)
+        {
+            return;
+        }
+
+        string savedData = PlayerSave.Instance.GetInventory();
+
+        if (string.IsNullOrEmpty(savedData))
+        {
+            return;
+        }
+
+        string[] itemNames = savedData.Split(',');
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (i < itemNames.Length && !string.IsNullOrEmpty(itemNames[i]))
+            {
+                ItemData loadedItem = Resources.Load<ItemData>("Items/" + itemNames[i]);
+                slots[i] = loadedItem;
+            }
+            else
+            {
+                slots[i] = null;
+            }
+        }
+    }
+    private void HandleScrollInput()
+    {
+        Mouse mouse = Mouse.current;
+
+        if (mouse == null)
+        {
+            return;
+        }
+
+        float scrollValue = mouse.scroll.ReadValue().y;
+
+        if (scrollValue > 0f)
+        {
+            int newIndex = selectedIndex - 1;
+
+            if (newIndex < 0)
+            {
+                newIndex = 8;
+            }
+
+            SelectSlot(newIndex);
+        }
+        else if (scrollValue < 0f)
+        {
+            int newIndex = selectedIndex + 1;
+
+            if (newIndex > 8)
+            {
+                newIndex = 0;
+            }
+
+            SelectSlot(newIndex);
         }
     }
 }

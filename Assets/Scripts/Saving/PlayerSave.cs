@@ -92,9 +92,10 @@ public class PlayerSave : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void SaveInvetory(int value) //save player's inventory items 
+    public void SaveInventory(string inventoryData)
     {
-        //**to do
+        PlayerPrefs.SetString("PlayerInventory", inventoryData);
+        PlayerPrefs.Save();
     }
 
     public void SaveMaxHealth(int value) //save player's max health 
@@ -141,10 +142,9 @@ public class PlayerSave : MonoBehaviour
         return value;
     }
 
-    public int GetInventory()
+    public string GetInventory()
     {
-        //int value = PlayerPrefs.GetInt("CurrentStage");
-        int value  = 0;
+        string value = PlayerPrefs.GetString("PlayerInventory", "");
         return value;
     }
 

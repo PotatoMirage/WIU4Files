@@ -16,3 +16,4 @@ MonoBehaviour:
   effectAmount: 5
   buffType: Health
   isPermanent: 1
+  buffIcon: {fileID: 21300000, guid: 2f6eee090aa47644aacd5c186797ec6f, type: 3}

@@ -89,10 +89,10 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.85
+    m_Value: 0.174
   fogStart:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 10
   fogEnd:
     m_OverrideState: 1
     m_Value: 20
@@ -113,10 +113,14 @@ MonoBehaviour:
     m_Value: -1
   heightFogEnd:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   heightFogDensity:
     m_OverrideState: 1
     m_Value: 0.7
+  playerTag: Player
+  playerShieldRadius:
+    m_OverrideState: 1
+    m_Value: 0.5
 --- !u!114 &-1267801154026944187
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -418,7 +422,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.186
   lightPosition:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.8}

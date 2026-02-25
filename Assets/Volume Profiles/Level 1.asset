@@ -55,7 +55,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.4
   lightPosition:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.8}
@@ -70,19 +70,19 @@ MonoBehaviour:
     m_Value: 64
   density:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.6
   decay:
     m_OverrideState: 1
     m_Value: 0.96
   weight:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.5
   exposure:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.2
   brightnessThreshold:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 0.5
 --- !u!114 &-4739394063302850606
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -132,7 +132,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 0.25
   fogStart:
     m_OverrideState: 1
     m_Value: 25
@@ -141,25 +141,29 @@ MonoBehaviour:
     m_Value: 35
   fogDensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 1
   fogColor:
     m_OverrideState: 1
     m_Value: {r: 0.78431374, g: 0.9098039, b: 0.627451, a: 1}
   horizonBias:
     m_OverrideState: 1
-    m_Value: 0.6
+    m_Value: 1
   useHeightFog:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   heightFogStart:
     m_OverrideState: 1
     m_Value: 0
   heightFogEnd:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 0
   heightFogDensity:
     m_OverrideState: 1
-    m_Value: 0.35
+    m_Value: 1
+  playerTag: Player
+  playerShieldRadius:
+    m_OverrideState: 1
+    m_Value: 0.5
 --- !u!114 &-1267801154026944187
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -424,10 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a57cf0c1f44a584a8194652338ca83e, type: 3}
   m_Name: PaperVolume
   m_EditorClassIdentifier: Assembly-CSharp::PaperVolume
-  active: 0
+  active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.82
+    m_Value: 0
   paperColor:
     m_OverrideState: 1
     m_Value: {r: 0.83137256, g: 0.9098039, b: 0.72156864, a: 1}
@@ -464,7 +468,7 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.5
   clamp:
     m_OverrideState: 1
     m_Value: 0.05
@@ -483,7 +487,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 1
   swaySpeed:
     m_OverrideState: 1
     m_Value: 0.8

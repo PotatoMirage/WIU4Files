@@ -49,7 +49,18 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         //change scenes here
-        //SceneManager.LoadScene("123");
+        if (PlayerSave.Instance.GetCurrentStage() == 1)
+        {
+            SceneManager.LoadScene("level 1");
+        }
+        else if (PlayerSave.Instance.GetCurrentStage() == 2)
+        {
+            SceneManager.LoadScene("level 2");
+        }
+        else if (PlayerSave.Instance.GetCurrentStage() == 3)
+        {
+            SceneManager.LoadScene("level 3");
+        }
     }
 
     //for settings page opening

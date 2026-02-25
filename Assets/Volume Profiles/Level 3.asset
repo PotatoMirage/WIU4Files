@@ -89,16 +89,16 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.92
+    m_Value: 0.7
   fogStart:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 15
   fogEnd:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 40
   fogDensity:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.8
   fogColor:
     m_OverrideState: 1
     m_Value: {r: 0.101960786, g: 0.1254902, b: 0.1882353, a: 1}
@@ -110,13 +110,17 @@ MonoBehaviour:
     m_Value: 1
   heightFogStart:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -1
   heightFogEnd:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1.5
   heightFogDensity:
     m_OverrideState: 1
     m_Value: 0.5
+  playerTag: Player
+  playerShieldRadius:
+    m_OverrideState: 1
+    m_Value: 0.2
 --- !u!114 &-1267801154026944187
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -393,7 +397,7 @@ MonoBehaviour:
     m_Value: {r: 0.5019608, g: 0.5647059, b: 0.6901961, a: 1}
   rayLength:
     m_OverrideState: 1
-    m_Value: 0.3
+    m_Value: 1
   samples:
     m_OverrideState: 1
     m_Value: 64
@@ -411,7 +415,7 @@ MonoBehaviour:
     m_Value: 0.2
   brightnessThreshold:
     m_OverrideState: 1
-    m_Value: 0.85
+    m_Value: 1
 --- !u!114 &1606000242549079847
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -477,7 +481,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.65
+    m_Value: 1
   swaySpeed:
     m_OverrideState: 1
     m_Value: 1.2
@@ -489,10 +493,10 @@ MonoBehaviour:
     m_Value: 3.5
   chromaticDrift:
     m_OverrideState: 1
-    m_Value: 0.0001
+    m_Value: 0.00284
   flickerStrength:
     m_OverrideState: 1
-    m_Value: 0.02
+    m_Value: 0.15
   flickerSpeed:
     m_OverrideState: 1
     m_Value: 3

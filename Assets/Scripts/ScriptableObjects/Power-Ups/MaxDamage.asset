@@ -16,3 +16,4 @@ MonoBehaviour:
   effectAmount: 5
   buffType: Damage
   isPermanent: 1
+  buffIcon: {fileID: 21300000, guid: a86604bf4f112be42a7c9973df601e88, type: 3}

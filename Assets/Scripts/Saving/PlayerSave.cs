@@ -15,18 +15,6 @@ public class PlayerSave : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void FirstSave()
     {
@@ -59,7 +47,7 @@ public class PlayerSave : MonoBehaviour
         SaveCurrentCheckpoint(-1);
         SaveCurrentStage(0);
         SaveMaxHealth(100);
-        SaveMaxDamage(2);
+        SaveMaxDamage(15);
     }
 
     public void SaveMasterVolume(float value) //save master volume settings

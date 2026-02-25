@@ -1866,7 +1866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1727615286110153322
 Transform:
   m_ObjectHideFlags: 0
@@ -1900,6 +1900,8 @@ MonoBehaviour:
   KeyBinds: {fileID: 5408188478477897463}
   Mainsettings: {fileID: 3040789912721088406}
   Saving: {fileID: 7619396664112410768}
+  checkpoint: {fileID: 0}
+  SaveandLeaveButton: {fileID: 0}
   playerInput: {fileID: 0}
   tactions: 9
   text:

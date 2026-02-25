@@ -11,6 +11,7 @@ public class PlayerMovementScript : MonoBehaviour
     public CharacterController controller;
     public PlayerAttackScript playerAttack;
     public Transform cameraTransform;
+    public PlayerCameraScript pcamera;
     public int health = 100;
     public int maxHealth = 100;
     public float walkSpeed = 2.5f;
@@ -394,6 +395,8 @@ public class PlayerMovementScript : MonoBehaviour
 
         animator.CrossFadeInFixedTime(Random.value < 0.5f ? "Player_AttackedOne" : "Player_AttackedTwo", 0.1f);
         yield return new WaitForSeconds(0.5f);
+
+        pcamera.isSideview = false;
 
         isHitStunned = false;
         currentAnimation = "";

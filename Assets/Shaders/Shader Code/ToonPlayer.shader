@@ -329,6 +329,15 @@ Shader "Custom/ToonPlayer"
             ENDHLSL
         }
 
+        // ── PASS 3: Depth Only ───────────────────────────────────
+Pass
+{
+    Name "DepthOnly"
+    Tags { "LightMode" = "DepthOnly" }
+    ColorMask 0
+    ZWrite On  // must be On so player blocks fog behind them
+}
+
         UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }

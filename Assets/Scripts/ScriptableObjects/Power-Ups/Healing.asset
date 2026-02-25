@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647a8b14b0b87154dbc47389ad4aafd1, type: 3}
   m_Name: Healing
   m_EditorClassIdentifier: Assembly-CSharp::PowerUps
-  duration: 10
-  effectAmount: 40
+  duration: 2
+  effectAmount: 20
   buffType: Health
   isPermanent: 0
-  buffIcon: {fileID: 21300000, guid: 15d36ce86c1f367439df32529d8d1505, type: 3}
+  buffIcon: {fileID: 21300000, guid: 1705f324ab1c2174aaca547558356610, type: 3}

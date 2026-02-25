@@ -90,8 +90,8 @@ public class GodRaysFeature : ScriptableRendererFeature
             {
                 pd.source              = temp;
                 pd.material            = _mat;
-                pd.intensity           = volume.intensity.value;
-                pd.lightPosition       = volume.lightPosition.value;
+                pd.intensity = GodRaysVolume.RuntimeIntensity;
+                pd.lightPosition = GodRaysVolume.RuntimeLightPosition;
                 pd.rayColor            = volume.rayColor.value;
                 pd.rayLength           = volume.rayLength.value;
                 pd.samples             = volume.samples.value;

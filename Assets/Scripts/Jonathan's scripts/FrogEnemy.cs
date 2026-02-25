@@ -242,7 +242,7 @@ public class FrogEnemy : MonoBehaviour
                     dynamicTongueCollider.transform.rotation = Quaternion.LookRotation(direction);
 
                 Vector3 currentSize = dynamicTongueCollider.size;
-                currentSize.z = distance *3f;
+                currentSize.z = distance *2f;
                 dynamicTongueCollider.size = currentSize;
 
                 if (!impactPlayed)

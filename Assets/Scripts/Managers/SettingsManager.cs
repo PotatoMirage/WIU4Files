@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -13,9 +14,13 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private GameObject KeyBinds;
     [SerializeField] private GameObject Mainsettings;
     [SerializeField] private GameObject Saving;
+    //[SerializeField] private CheckPointManager checkpoint;
+    //[SerializeField] private GameObject SaveandLeaveButton;
 
-    //[Header("Getting Audio")]
-
+    [Header("Audio")]
+    [SerializeField] private Slider mastervolume;
+    [SerializeField] private Slider BGMvolume;
+    
 
     [Header("Keybind")]
     [SerializeField] private PlayerInput playerInput;
@@ -23,9 +28,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private TMP_Text[] text;
 
     private InputAction[] action;
-    //[SerializeField] private GameObject SaveandLeaveButton;
-
-
+    
     private bool isAudio;
     private bool isKeybind;
     private bool isopen;
@@ -46,8 +49,15 @@ public class SettingsManager : MonoBehaviour
         //     PlayerSave.Instance.resetkeybinds()
         // }
 
+        //set up all save prefs
+        
+        //save the audio as well (getting the audio thingy and then setting it)
+        playerInput.actions.LoadBindingOverridesFromJson(PlayerSave.Instance.GetInventory());
+        mastervolume.value = PlayerSave.Instance.GetMasterVolume();
+        BGMvolume.value = PlayerSave.Instance.GetBGMVolume();
 
-        //SaveandLeaveButton.SetActive(false); (not complete - post settings)
+        //for save and leave
+        //SaveandLeaveButton.SetActive(false);
     }
 
     void Awake()
@@ -69,7 +79,14 @@ public class SettingsManager : MonoBehaviour
     void Update()
     {
         //check if in check point and change Save and Leave button accordingly
-    
+        // if (checkpoint.getsaveandleave())
+        // {
+        //     SaveandLeaveButton.SetActive(true);    
+        // }
+        // else
+        // {
+        //     SaveandLeaveButton.SetActive(false);
+        // }
 
 
         //updating the keybinding text
@@ -79,28 +96,10 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    public void OpenSettings()
-    {
-        //open Settings
-        Settings.SetActive(true);
-
-
-        //stop the game (pause)
-        Time.timeScale = 0;
-    }
-
-    public void CloseSettings()
-    {
-        //close Settings
-        Settings.SetActive(false);
-
-        //play the game (play)
-        Time.timeScale = 1;
-    }
-
     public void SaveandLeave()
     {
         //save the progress and leave
+        //change scene(last thing)
     }
 
     public void AudioOpen()
@@ -130,11 +129,13 @@ public class SettingsManager : MonoBehaviour
         if (isAudio)
         {
             //save audio
+            PlayerSave.Instance.SaveMasterVolume(mastervolume.value);
+            PlayerSave.Instance.SaveBGMVolume(BGMvolume.value);
         }
         else if (isKeybind)
         {
             //save keybind
-            //PlayerSave.Instance.SaveKeybinds(playerInput.actions.SaveBindingOverridesAsJson());
+            PlayerSave.Instance.SaveKeybinds(playerInput.actions.SaveBindingOverridesAsJson());
         }
 
         //return to menu
@@ -149,12 +150,15 @@ public class SettingsManager : MonoBehaviour
         if (isAudio)
         {
             //reset audio
+            PlayerSave.Instance.resetAudio();
         }
         else if (isKeybind)
         {
             //reset keybind
+            playerInput.actions.RemoveAllBindingOverrides();
         }
     }
+
 
     public void Rebinding(int actionindex)
     {

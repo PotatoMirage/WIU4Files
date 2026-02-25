@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a2238a31e4f2140b89eefa0f6749bc, type: 3}
+  m_Name: MaxHpBuff
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: MaxHpBuff
+  icon: {fileID: 21300000, guid: 2f6eee090aa47644aacd5c186797ec6f, type: 3}
+  dropPrefab: {fileID: 986738281075222945, guid: dc3819497e948d44eae5e332952d7ee0, type: 3}
+  isConsumable: 1
+  useEffect: {fileID: 11400000, guid: 6dd23fa29d8dc4c489ca989d06b2f645, type: 2}

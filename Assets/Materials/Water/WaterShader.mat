@@ -68,7 +68,7 @@ Material:
     - Vector1_1: 20
     - Vector1_2: 0.2
     - Vector1_4b6359e4138b4938b9a2234a3a431526: 0.05
-    - Vector1_77540afbbbf0453681562d5478321802: 5
+    - Vector1_77540afbbbf0453681562d5478321802: 6.35
     - Vector1_873cacf0119b4b9db2fc4b524937c07b: 2
     - Vector1_b9115520341e462a8318e8622b851afa: 0
     - Vector1_b9115520341e462a8318e8622b851afa_1: 0
@@ -81,7 +81,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
-    - _Dist1: 4
+    - _Dist1: 0
     - _DstBlend: 10
     - _DstBlendAlpha: 10
     - _EmissiveSpeed: 0.2
@@ -101,9 +101,9 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - Color_1: {r: 0, g: 0, b: 0, a: 0.6392157}
-    - Color_13ec232c958d4c648c90624257c5b37c: {r: 0.5849056, g: 0.52562463, b: 0.43867922, a: 0.9490196}
+    - Color_1: {r: 0, g: 0.3018868, b: 0.02871294, a: 0.6392157}
+    - Color_13ec232c958d4c648c90624257c5b37c: {r: 0.11294055, g: 0.509434, b: 0.13564008, a: 0.9490196}
     - Color_21fed8c222a347c79b773bdea87c50cb: {r: 1, g: 0.9858491, b: 0.9858491, a: 0}
-    - Color_35a38b55f4c144bd891ce06b7562e933: {r: 0, g: 0.4226508, b: 1, a: 0.74509805}
+    - Color_35a38b55f4c144bd891ce06b7562e933: {r: 0.047384057, g: 0.3207547, b: 0, a: 0.74509805}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -15,6 +15,7 @@ public class PlayerAttackScript : MonoBehaviour
     public Transform leftHandPosition;
     public Transform rightHandPosition;
     public Transform projectileSpawnPoint;
+    public AudioClip playerSwingSFX;
     public LineRenderer leftLineRenderer;
     public LineRenderer rightLineRenderer;
     public BoxCollider attackCollider;
@@ -27,6 +28,12 @@ public class PlayerAttackScript : MonoBehaviour
     [Header("Crosshair Settings")]
     public RectTransform crosshairOutline;
     public GameObject aimCrosshair;
+
+    [Header("Attack SFX Settings")]
+    public AudioSource audioSource;
+    public AudioClip meleeSFX;
+    public AudioClip slingshotPullSFX;
+    public AudioClip slingshotFireSFX;
 
     private InputAction leftClickAction, rightClickAction, meleeAction;
     private bool isAllowedADS, isFiringSlingshot, isMeleeAttacking;
@@ -73,9 +80,13 @@ public class PlayerAttackScript : MonoBehaviour
             isAllowedADS = playerMovement.UnCrouchPlayer();
 
         // Check to see if the player is aiming, if so, begin charging the attack and show the indicator
+        bool wasAiming = IsAiming;
         IsAiming = rightClickAction.IsPressed() && !isFiringSlingshot && !isActionBlocked && !isMeleeAttacking && cooldownTimer <= 0 && isAllowedADS && !playerMovement.IsCrouching && Cursor.lockState == CursorLockMode.Locked;
         chargeTimer = IsAiming ? Mathf.Min(chargeTimer + Time.deltaTime, fireMaxCharge) : 0;
         aimCrosshair.SetActive(IsAiming);
+
+        if (IsAiming && !wasAiming)
+            audioSource.PlayOneShot(slingshotPullSFX);
 
         // Shrinks the crosshair outline as the charge increases
         if (IsAiming)
@@ -127,6 +138,7 @@ public class PlayerAttackScript : MonoBehaviour
     System.Collections.IEnumerator FireProjectile()
     {
         isFiringSlingshot = true;
+        audioSource.PlayOneShot(slingshotFireSFX);
 
         // Instantiate the slingshot fire particle effect at the "projectileSpawnPoint"
         GameObject slingshotEffect = Instantiate(fireEffectPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation * Quaternion.Euler(-90, 0, 0));
@@ -162,7 +174,11 @@ public class PlayerAttackScript : MonoBehaviour
     {
         isMeleeAttacking = true;
         attackCollider.enabled = true;
+        audioSource.PlayOneShot(meleeSFX);
         attackCollider.GetComponent<AttackColliderScript>().ClearHits();
+
+        if (Random.value < 0.5f)
+            audioSource.PlayOneShot(playerSwingSFX);
 
         string meleeAnim = Random.value < 0.5f ? "Player_MeleeSwingOne" : "Player_MeleeSwingTwo";
         animator.CrossFadeInFixedTime(meleeAnim, 0.25f);

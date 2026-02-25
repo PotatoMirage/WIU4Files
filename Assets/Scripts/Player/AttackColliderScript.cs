@@ -15,13 +15,20 @@ public class AttackColliderScript : MonoBehaviour
 
         hitTargets.Add(other.gameObject);
         EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+        WolfMovementScript wolfMovement = other.gameObject.GetComponent<WolfMovementScript>();
 
         if (enemyHealth != null)
         {
             enemyHealth.TakeDamage(meleeDamage);
         }
-        Debug.Log("Player has dealt " + meleeDamage + " damage to " + other.gameObject.name);
 
+        if (wolfMovement != null)
+        {
+            wolfMovement.TakeDamage(meleeDamage);
+            wolfMovement.TriggerStumble();
+        }
+
+        Debug.Log("Player has dealt " + meleeDamage + " damage to " + other.gameObject.name);
     }
 
     void OnEnable() => hitTargets.Clear();

@@ -18,6 +18,7 @@ public class FrogEnemy : MonoBehaviour
     public LayerMask playerLayer;
 
     public GameObject fliesPrefab;
+    public GameObject frogAura;
     public Transform mouthSpawnPoint;
     public Transform tongueTipBone;
 
@@ -41,7 +42,7 @@ public class FrogEnemy : MonoBehaviour
         isFullyEmerged = false;
         isAttacking = false;
         timeOutOfRange = 0f;
-
+        frogAura.SetActive(false);
         if (tongueCollider != null)
         {
             dynamicTongueCollider = tongueCollider as BoxCollider;
@@ -177,7 +178,7 @@ public class FrogEnemy : MonoBehaviour
         }
 
         isFullyEmerged = true;
-
+        frogAura.SetActive(true);
         if (mainCollider != null)
         {
             mainCollider.enabled = true;

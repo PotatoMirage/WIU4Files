@@ -78,7 +78,7 @@ public class FliesEnemy : MonoBehaviour
             PlayerMovementScript player = other.GetComponent<PlayerMovementScript>();
             if (player != null && !player.IsDead)
             {
-                player.ApplyDebuff(3f, 0.5f, debuffIcon, debuffName);
+                player.ApplyDebuff(3f, 0.5f);
             }
 
             Destroy(gameObject);

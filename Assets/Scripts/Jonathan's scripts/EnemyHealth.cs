@@ -9,31 +9,40 @@ public class EnemyHealth : MonoBehaviour
     public UnityEvent onHit;
     public UnityEvent onDeath;
 
+    public GameObject originalPrefab;
     private float currentHealth;
-    private void Start()
-    {
-        currentHealth = maxHealth;
 
-        if (healthBar != null)
+    private void OnEnable()
+    {
+        float startingHealth = maxHealth;
+        currentHealth = startingHealth;
+
+        bool hasHealthBar = healthBar != null;
+        if (hasHealthBar)
         {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
         }
     }
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
+        float newHealth = currentHealth - damageAmount;
+        currentHealth = newHealth;
 
-        if (currentHealth < 0f)
+        bool isDead = currentHealth < 0f;
+        if (isDead)
         {
-            currentHealth = 0f;
+            float zeroHealth = 0f;
+            currentHealth = zeroHealth;
         }
 
-        if (healthBar != null)
+        bool hasHealthBar = healthBar != null;
+        if (hasHealthBar)
         {
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
         }
 
-        if (currentHealth > 0f)
+        bool isAlive = currentHealth > 0f;
+        if (isAlive)
         {
             onHit?.Invoke();
         }
@@ -41,5 +50,10 @@ public class EnemyHealth : MonoBehaviour
         {
             onDeath?.Invoke();
         }
+    }
+    public void HandleDeath()
+    {
+        GameObject currentObject = gameObject;
+        ObjectPoolManager.Instance.ReturnToPool(originalPrefab, currentObject);
     }
 }

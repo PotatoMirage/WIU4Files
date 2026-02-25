@@ -36,15 +36,11 @@ public class SlingshotProjectileScript : MonoBehaviour
         // Destroy enemy projectile on impact
         if (collision.gameObject.CompareTag("EnemyProjectiles"))
         {
-            Destroy(collision.gameObject); // destroy enemy projectiles
+            Destroy(collision.gameObject);
 
             if (hitEffectPrefab != null)
             {
-                GameObject effect = Instantiate(
-                    hitEffectPrefab,
-                    collision.contacts[0].point,
-                    Quaternion.LookRotation(collision.contacts[0].normal)
-                );
+                GameObject effect = Instantiate(hitEffectPrefab, collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));
                 Destroy(effect, effect.GetComponent<ParticleSystem>().main.duration);
             }
 
@@ -58,18 +54,25 @@ public class SlingshotProjectileScript : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(projectileDamage);
-                Debug.Log($"Projectile hit {collision.gameObject.name} for {projectileDamage} damage.");
+                Debug.Log($"Player Projectile has dealt {projectileDamage} damage to {collision.gameObject.name}");
+            }
+
+            WolfMovementScript wolfMovement = collision.gameObject.GetComponent<WolfMovementScript>();
+            if (wolfMovement != null)
+            {
+                wolfMovement.TakeDamage(projectileDamage);
+
+                // If the wolf is retreating by levitating away, upon getting hit, it will be fall and get stunned
+                if (wolfMovement.IsRetreating)
+                    wolfMovement.TriggerStunned();
+
+                Debug.Log($"Player Projectile has dealt {projectileDamage} damage to {collision.gameObject.name}");
             }
         }
 
-
         if (hitEffectPrefab != null)
         {
-            GameObject effect = Instantiate(
-                hitEffectPrefab,
-                collision.contacts[0].point,
-                Quaternion.LookRotation(collision.contacts[0].normal)
-            );
+            GameObject effect = Instantiate(hitEffectPrefab, collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));
             Destroy(effect, effect.GetComponent<ParticleSystem>().main.duration);
         }
 

@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerMovementScript : MonoBehaviour
 {
@@ -11,7 +9,11 @@ public class PlayerMovementScript : MonoBehaviour
     public CharacterController controller;
     public PlayerAttackScript playerAttack;
     public Transform cameraTransform;
-    public PlayerCameraScript pcamera;
+    public AudioSource audioSource;
+    public AudioClip[] footstepSFX;
+    public AudioClip playerJumpSFX;
+    public AudioClip playerHitOneSFX;
+    public AudioClip playerHitTwoSFX;
     public int health = 100;
     public int maxHealth = 100;
     public float walkSpeed = 2.5f;
@@ -39,19 +41,16 @@ public class PlayerMovementScript : MonoBehaviour
     private InputAction moveAction, crouchAction, jumpAction, rollAction;
     private Vector2 moveInput;
     private bool isGrounded, isCrouching, isReadyJump, isJumping, isRolling, isFalling, isLanding, isDead, isHitStunned, wasMeleeAttacking;
-    private float verticalVelocity, jumpSpeedMultiplier = 1.0f, gravityMultiplier = 1.0f, fallStartY, meleeDashTimer, hitStunCooldownTimer;
+    private float verticalVelocity, jumpSpeedMultiplier = 1.0f, gravityMultiplier = 1.0f, fallStartY, meleeDashTimer, hitStunCooldownTimer, footstepTimer;
     private string currentAnimation;
-
 
     [Header("Debuff Effects")]
     public GameObject debuffVFXPrefab;
-
     private float debuffTimer = 0f;
     private float debuffSpeedMultiplier = 1f;
     private float baseWalkSpeed;
     private float baseCrouchSpeed;
     private float baseRollSpeed;
-    private Coroutine debuffUICoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -84,6 +83,20 @@ public class PlayerMovementScript : MonoBehaviour
 
             controller.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
             return;
+        }
+
+        if (isGrounded && moveInput.magnitude > 0 && !isCrouching && !isJumping && footstepSFX.Length > 0)
+        {
+            footstepTimer -= Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                footstepTimer = 0.45f;
+                audioSource.PlayOneShot(footstepSFX[Random.Range(0, footstepSFX.Length)]);
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
         }
 
         moveInput = moveAction.ReadValue<Vector2>();
@@ -159,6 +172,9 @@ public class PlayerMovementScript : MonoBehaviour
                     gravityMultiplier = 0.5f;
                     PlayAnimation("Player_JumpMovement");
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2.0f * gravity) * 0.6f;
+
+                    if (Random.value < 0.5f)
+                        audioSource.PlayOneShot(playerJumpSFX);
                 }
                 else // Player is idle and the jump command is triggered
                 {
@@ -256,6 +272,18 @@ public class PlayerMovementScript : MonoBehaviour
             TriggerDeath();
     }
 
+    public void ApplyDebuff(float duration, float speedMultiplier)
+    {
+        debuffTimer = duration;
+        debuffSpeedMultiplier = speedMultiplier;
+
+        if (debuffVFXPrefab != null)
+        {
+            GameObject vfx = Instantiate(debuffVFXPrefab, transform);
+            Destroy(vfx, duration);
+        }
+    }
+
     public bool UnCrouchPlayer()
     {
         if (!isCrouching)
@@ -347,6 +375,9 @@ public class PlayerMovementScript : MonoBehaviour
         isJumping = true;
         jumpSpeedMultiplier = 2.0f;
         verticalVelocity = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+
+        if (Random.value < 0.5f)
+            audioSource.PlayOneShot(playerJumpSFX);
     }
 
     System.Collections.IEnumerator RollWithStartDelay(string rollAnim, Vector3 rollDir)
@@ -393,43 +424,16 @@ public class PlayerMovementScript : MonoBehaviour
         isHitStunned = true;
         hitStunCooldownTimer = 1.0f;
 
+        if (Random.value < 0.5f)
+            audioSource.PlayOneShot(playerHitOneSFX);
+        else
+            audioSource.PlayOneShot(playerHitTwoSFX);
+
         animator.CrossFadeInFixedTime(Random.value < 0.5f ? "Player_AttackedOne" : "Player_AttackedTwo", 0.1f);
         yield return new WaitForSeconds(0.5f);
 
-        pcamera.isSideview = false;
-
         isHitStunned = false;
         currentAnimation = "";
-    }
-
-    public void ApplyDebuff(float duration, float speedMultiplier, Sprite icon, string effectName)
-    {
-        debuffTimer = duration;
-        debuffSpeedMultiplier = speedMultiplier;
-
-        if (debuffVFXPrefab != null)
-        {
-            GameObject vfx = Instantiate(debuffVFXPrefab, transform);
-            Destroy(vfx, duration);
-        }
-
-        if (StatusEffectUIManager.Instance != null && icon != null)
-        {
-            StatusEffectUIManager.Instance.AddEffect(effectName, icon, duration, false);
-            if (debuffUICoroutine != null)
-            {
-                StopCoroutine(debuffUICoroutine);
-            }
-            debuffUICoroutine = StartCoroutine(RemoveDebuffUIRoutine(effectName, duration));
-        }
-    }
-    private System.Collections.IEnumerator RemoveDebuffUIRoutine(string effectName, float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        if (StatusEffectUIManager.Instance != null)
-        {
-            StatusEffectUIManager.Instance.RemoveEffect(effectName);
-        }
     }
 
     public void ChangeHealth(int amount) => SetHealth(health + amount);

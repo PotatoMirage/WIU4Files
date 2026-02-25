@@ -1,13 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
-using NUnit.Framework;
 
 public class PlayerCameraScript : MonoBehaviour
 {
     [Header("Player Camera Settings")]
     public CinemachineCamera cinemachineCamera;
-    public CinemachineCamera sideviewCamera;
     public PlayerInput playerInput;
     public PlayerAttackScript playerAttack;
     public Transform player;
@@ -16,24 +14,16 @@ public class PlayerCameraScript : MonoBehaviour
     public float minZoomDistance = 1.0f;
     public float maxZoomDistance = 2.5f;
 
-    [SerializeField] private GameObject sideviewonlyitems;
-    [SerializeField] private GameObject normalviewonlyitems;
-
     private InputAction lookAction;
-    private InputAction cameraswitchAction;
     private CinemachineOrbitalFollow orbitalFollow;
     private Vector3 initialTargetViewPosition;
     private bool wasAiming;
     private float mouseX, mouseY, currentZoomDistance, targetZoomDistance;
-    public bool isSideview;
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         lookAction = playerInput.actions["Look"];
-        cameraswitchAction = playerInput.actions["Special"];
 
         orbitalFollow = cinemachineCamera.GetComponent<CinemachineOrbitalFollow>();
         initialTargetViewPosition = targetView.localPosition;
@@ -42,13 +32,6 @@ public class PlayerCameraScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        //set sideview to false
-        isSideview = false;
-
-        //set the objects at the start
-        sideviewonlyitems.SetActive(false);
-        normalviewonlyitems.SetActive(true);
     }
 
     // Update is called once per frame
@@ -70,32 +53,6 @@ public class PlayerCameraScript : MonoBehaviour
             wasAiming = isAiming;
             orbitalFollow.HorizontalAxis.Value = mouseX;
             orbitalFollow.VerticalAxis.Value = mouseY;
-        }
-
-        if (cameraswitchAction.WasPressedThisFrame())
-        {   //setting the bool
-            if (isSideview)
-            {
-                isSideview = false;
-            }
-            else
-            {
-                isSideview = true;
-            }
-        }
-
-        //for changing views
-        if (isSideview)
-        { //in side view
-            sideviewCamera.Priority = 50;
-            sideviewonlyitems.SetActive(true);
-            normalviewonlyitems.SetActive(false);
-        }
-        else
-        { //out of side view
-            sideviewCamera.Priority = 10;
-            sideviewonlyitems.SetActive(false);
-            normalviewonlyitems.SetActive(true);
         }
     }
 

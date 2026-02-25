@@ -56,6 +56,15 @@ public class FishEnemy : MonoBehaviour
             return;
         }
 
+        if (playerMovement != null && playerMovement.IsDead)
+        {
+            if (currentState == FishState.Emerging || currentState == FishState.EmergeIdle)
+            {
+                OnEmergeComplete();
+            }
+            return;
+        }
+
         if (currentState == FishState.HiddenIdle)
         {
             MoveTowardsPlayer();
@@ -67,6 +76,28 @@ public class FishEnemy : MonoBehaviour
                 StartEmerge();
             }
         }
+    }
+
+    private IEnumerator ApplyBleedEffect()
+    {
+        isBleeding = true;
+
+        if (playerTarget != null && playerMovement != null && !playerMovement.IsDead)
+        {
+            playerMovement.ChangeHealth(-attackDamage);
+        }
+
+        for (int i = 0; i < bleedTicks; i++)
+        {
+            yield return new WaitForSeconds(bleedTickInterval);
+
+            if (playerTarget != null && playerMovement != null && !playerMovement.IsDead)
+            {
+                playerMovement.ChangeHealth(-bleedDamagePerTick);
+            }
+        }
+
+        isBleeding = false;
     }
 
     private void MoveTowardsPlayer()
@@ -165,29 +196,6 @@ public class FishEnemy : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator ApplyBleedEffect()
-    {
-        isBleeding = true;
-
-        if (playerTarget != null && playerMovement != null)
-        {
-            playerMovement.ChangeHealth(-attackDamage);
-        }
-
-        for (int i = 0; i < bleedTicks; i++)
-        {
-            yield return new WaitForSeconds(bleedTickInterval);
-
-            if (playerTarget != null && playerMovement != null)
-            {
-                playerMovement.ChangeHealth(-bleedDamagePerTick);
-            }
-        }
-
-        isBleeding = false;
-    }
-
     private void FindPlayerTarget()
     {
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");

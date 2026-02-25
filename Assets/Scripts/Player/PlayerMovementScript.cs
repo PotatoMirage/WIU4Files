@@ -50,7 +50,7 @@ public class PlayerMovementScript : MonoBehaviour
     private float baseWalkSpeed;
     private float baseCrouchSpeed;
     private float baseRollSpeed;
-
+    private Coroutine debuffUICoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -399,7 +399,7 @@ public class PlayerMovementScript : MonoBehaviour
         currentAnimation = "";
     }
 
-    public void ApplyDebuff(float duration, float speedMultiplier)
+    public void ApplyDebuff(float duration, float speedMultiplier, Sprite icon, string effectName)
     {
         debuffTimer = duration;
         debuffSpeedMultiplier = speedMultiplier;
@@ -408,6 +408,24 @@ public class PlayerMovementScript : MonoBehaviour
         {
             GameObject vfx = Instantiate(debuffVFXPrefab, transform);
             Destroy(vfx, duration);
+        }
+
+        if (StatusEffectUIManager.Instance != null && icon != null)
+        {
+            StatusEffectUIManager.Instance.AddEffect(effectName, icon, duration, false);
+            if (debuffUICoroutine != null)
+            {
+                StopCoroutine(debuffUICoroutine);
+            }
+            debuffUICoroutine = StartCoroutine(RemoveDebuffUIRoutine(effectName, duration));
+        }
+    }
+    private System.Collections.IEnumerator RemoveDebuffUIRoutine(string effectName, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        if (StatusEffectUIManager.Instance != null)
+        {
+            StatusEffectUIManager.Instance.RemoveEffect(effectName);
         }
     }
 

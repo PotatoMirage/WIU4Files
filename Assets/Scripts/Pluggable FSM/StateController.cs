@@ -50,7 +50,14 @@ public class StateController : MonoBehaviour
     private void Update()
     {
         if (!aiActive) return;
-
+        if (chaseTarget != null)
+        {
+            PlayerMovementScript playerMovement = chaseTarget.GetComponent<PlayerMovementScript>();
+            if (playerMovement != null && playerMovement.IsDead)
+            {
+                chaseTarget = null;
+            }
+        }
         if (currentState != null)
             currentState.UpdateState(this);
 

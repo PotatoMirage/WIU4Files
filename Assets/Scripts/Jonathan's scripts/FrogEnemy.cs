@@ -34,6 +34,7 @@ public class FrogEnemy : MonoBehaviour
     private float timeOutOfRange = 0f;
     private float lastAttackTime = 0f;
     private BoxCollider dynamicTongueCollider;
+    private PlayerMovementScript playerMovement;
     private void Start()
     {
         isEmerged = false;
@@ -69,11 +70,38 @@ public class FrogEnemy : MonoBehaviour
             if (hits.Length > 0)
             {
                 playerTarget = hits[0].transform;
+                playerMovement = playerTarget.GetComponent<PlayerMovementScript>();
             }
             else
             {
                 return;
             }
+        }
+
+        if (playerMovement != null && playerMovement.IsDead)
+        {
+            if (isEmerged && !isAttacking)
+            {
+                isEmerged = false;
+                isFullyEmerged = false;
+                playerTarget = null;
+
+                if (frogAnimator != null)
+                {
+                    frogAnimator.speed = 1f;
+                    frogAnimator.SetBool("IsEmerged", false);
+                }
+
+                if (mainCollider != null)
+                {
+                    mainCollider.enabled = false;
+                }
+
+                DisableTongueCollider();
+                StopAllCoroutines();
+                StartCoroutine(HideRoutine());
+            }
+            return;
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);

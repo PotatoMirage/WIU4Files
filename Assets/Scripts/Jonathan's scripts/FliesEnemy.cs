@@ -11,11 +11,9 @@ public class FliesEnemy : MonoBehaviour
 
     private Transform target;
     private float aliveTimer = 0f;
-
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
-    }
+    public Sprite debuffIcon;
+    public string debuffName = "FlySlow";
+    private PlayerMovementScript targetPlayer;
 
     private void Start()
     {
@@ -38,9 +36,25 @@ public class FliesEnemy : MonoBehaviour
         transform.localScale = targetScale;
     }
 
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+        if (target != null)
+        {
+            targetPlayer = target.GetComponent<PlayerMovementScript>();
+        }
+    }
+
     private void Update()
     {
         aliveTimer += Time.deltaTime;
+
+        if (targetPlayer != null && targetPlayer.IsDead)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         if (aliveTimer >= chaseDuration)
         {
             Destroy(gameObject);
@@ -49,7 +63,7 @@ public class FliesEnemy : MonoBehaviour
 
         if (target != null)
         {
-            Vector3 erraticOffset = new(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            Vector3 erraticOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             Vector3 direction = ((target.position + erraticOffset) - transform.position).normalized;
 
             transform.position += speed * Time.deltaTime * direction;
@@ -62,10 +76,9 @@ public class FliesEnemy : MonoBehaviour
         if (((1 << other.gameObject.layer) & playerLayer) != 0)
         {
             PlayerMovementScript player = other.GetComponent<PlayerMovementScript>();
-            if (player != null)
+            if (player != null && !player.IsDead)
             {
-                // Trigger debuff on player
-                player.ApplyDebuff(3f, 0.5f);
+                player.ApplyDebuff(3f, 0.5f, debuffIcon, debuffName);
             }
 
             Destroy(gameObject);

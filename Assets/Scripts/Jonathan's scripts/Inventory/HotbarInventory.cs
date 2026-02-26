@@ -15,37 +15,37 @@ public class HotbarInventory : MonoBehaviour
     private InputAction interactAction;
     private List<WorldItem> nearbyItems = new List<WorldItem>();
 
-    private void Awake()
+    public void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         interactAction = playerInput.actions["Interact"];
     }
 
-    private void OnEnable()
+    public void OnEnable()
     {
         interactAction.performed += OnInteract;
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         interactAction.performed -= OnInteract;
     }
 
-    private void Start()
+    public void Start()
     {
         LoadInventory();
 
         if (uiManager != null)
         {
-            uiManager.UpdateSelection(selectedIndex);
-
             for (int i = 0; i < 5; i++)
             {
                 uiManager.UpdateSlot(i, slots[i]);
             }
+            SelectNearestAvailableSlot();
         }
     }
-    private void Update()
+
+    public void Update()
     {
         HandleHotbarInput();
         HandleDropInput();
@@ -72,10 +72,36 @@ public class HotbarInventory : MonoBehaviour
             DropCurrentItem();
         }
     }
+
     private void SelectSlot(int index)
     {
-        selectedIndex = index;
-        uiManager.UpdateSelection(selectedIndex);
+        if (slots[index] != null)
+        {
+            selectedIndex = index;
+            uiManager.UpdateSelection(selectedIndex, true);
+        }
+    }
+
+    private void SelectNearestAvailableSlot()
+    {
+        if (slots[selectedIndex] != null)
+        {
+            uiManager.UpdateSelection(selectedIndex, true);
+            return;
+        }
+
+        for (int i = 1; i < slots.Length; i++)
+        {
+            int checkIndex = (selectedIndex + i) % slots.Length;
+            if (slots[checkIndex] != null)
+            {
+                selectedIndex = checkIndex;
+                uiManager.UpdateSelection(selectedIndex, true);
+                return;
+            }
+        }
+
+        uiManager.UpdateSelection(selectedIndex, false);
     }
 
     private void OnInteract(InputAction.CallbackContext context)
@@ -105,6 +131,7 @@ public class HotbarInventory : MonoBehaviour
             {
                 slots[selectedIndex] = null;
                 uiManager.UpdateSlot(selectedIndex, null);
+                SelectNearestAvailableSlot();
             }
         }
     }
@@ -123,6 +150,7 @@ public class HotbarInventory : MonoBehaviour
     private void PickupItem(WorldItem worldItem)
     {
         bool itemAdded = false;
+        int addedIndex = -1;
 
         for (int i = 0; i < 5; i++)
         {
@@ -131,6 +159,7 @@ public class HotbarInventory : MonoBehaviour
                 slots[i] = worldItem.itemData;
                 uiManager.UpdateSlot(i, slots[i]);
                 itemAdded = true;
+                addedIndex = i;
                 break;
             }
         }
@@ -146,14 +175,17 @@ public class HotbarInventory : MonoBehaviour
             slots[selectedIndex] = worldItem.itemData;
             uiManager.UpdateSlot(selectedIndex, slots[selectedIndex]);
             itemAdded = true;
+            addedIndex = selectedIndex;
         }
 
         if (itemAdded)
         {
             nearbyItems.Remove(worldItem);
             Destroy(worldItem.gameObject);
+            SelectSlot(addedIndex);
         }
     }
+
     private void DropCurrentItem()
     {
         if (slots[selectedIndex] != null)
@@ -161,13 +193,14 @@ public class HotbarInventory : MonoBehaviour
             DropItemPrefab(slots[selectedIndex]);
             slots[selectedIndex] = null;
             uiManager.UpdateSlot(selectedIndex, null);
+            SelectNearestAvailableSlot();
         }
     }
 
     private void DropItemPrefab(ItemData itemData)
     {
         GameObject droppedObject = Instantiate(itemData.dropPrefab, dropPoint.position, dropPoint.rotation);
-        
+
         if (droppedObject.TryGetComponent<Rigidbody>(out Rigidbody rigidBody))
         {
             Vector3 force = dropPoint.forward * dropForce + dropPoint.up * dropUpForce;
@@ -198,6 +231,7 @@ public class HotbarInventory : MonoBehaviour
             }
         }
     }
+
     public void SaveInventory()
     {
         if (PlayerSave.Instance == null)
@@ -222,6 +256,7 @@ public class HotbarInventory : MonoBehaviour
         string inventoryData = string.Join(",", itemNames);
         PlayerSave.Instance.SaveInventory(inventoryData);
     }
+
     public void LoadInventory()
     {
         if (PlayerSave.Instance == null)
@@ -251,6 +286,7 @@ public class HotbarInventory : MonoBehaviour
             }
         }
     }
+
     private void HandleScrollInput()
     {
         Mouse mouse = Mouse.current;
@@ -262,27 +298,27 @@ public class HotbarInventory : MonoBehaviour
 
         float scrollValue = mouse.scroll.ReadValue().y;
 
-        if (scrollValue > 0f)
+        if (scrollValue == 0f)
         {
-            int newIndex = selectedIndex - 1;
-
-            if (newIndex < 0)
-            {
-                newIndex = 8;
-            }
-
-            SelectSlot(newIndex);
+            return;
         }
-        else if (scrollValue < 0f)
-        {
-            int newIndex = selectedIndex + 1;
 
-            if (newIndex > 8)
+        int dir = scrollValue > 0f ? -1 : 1;
+
+        for (int i = 1; i < slots.Length; i++)
+        {
+            int checkIndex = (selectedIndex + dir * i) % slots.Length;
+
+            if (checkIndex < 0)
             {
-                newIndex = 0;
+                checkIndex += slots.Length;
             }
 
-            SelectSlot(newIndex);
+            if (slots[checkIndex] != null)
+            {
+                SelectSlot(checkIndex);
+                break;
+            }
         }
     }
 }

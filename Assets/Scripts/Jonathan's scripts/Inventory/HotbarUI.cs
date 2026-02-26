@@ -20,11 +20,11 @@ public class HotbarUI : MonoBehaviour
         }
     }
 
-    public void UpdateSelection(int selectedIndex)
+    public void UpdateSelection(int selectedIndex, bool hasValidItem)
     {
         for (int i = 0; i < selectionHighlights.Length; i++)
         {
-            selectionHighlights[i].enabled = (i == selectedIndex);
+            selectionHighlights[i].enabled = (i == selectedIndex && hasValidItem);
         }
     }
 }

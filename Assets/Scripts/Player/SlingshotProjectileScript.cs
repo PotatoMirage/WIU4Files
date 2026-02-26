@@ -3,7 +3,7 @@
 public class SlingshotProjectileScript : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    public int projectileDamage = 15;
+    public float projectileDamage = 15.0f;
     public float projectileSpeed = 25.0f;
     public float gravityMultiplier = 1.0f;
     public GameObject hitEffectPrefab;
@@ -11,29 +11,25 @@ public class SlingshotProjectileScript : MonoBehaviour
 
     private Rigidbody rigidBody;
 
-    // Awake is called when loading an instance of a script component
-    void Awake()
+    public void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
-        enemyHealthScript = FindFirstObjectByType<EnemyHealth>();
+        enemyHealthScript = UnityEngine.Object.FindFirstObjectByType<EnemyHealth>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         rigidBody.linearVelocity = transform.forward * projectileSpeed;
         Destroy(gameObject, 5.0f);
     }
 
-    // FixedUpdate is called once every physics frame
-    void FixedUpdate()
+    public void FixedUpdate()
     {
         rigidBody.linearVelocity += gravityMultiplier * Time.fixedDeltaTime * Physics.gravity;
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
-        // Destroy enemy projectile on impact
         if (collision.gameObject.CompareTag("EnemyProjectiles"))
         {
             Destroy(collision.gameObject);
@@ -62,9 +58,10 @@ public class SlingshotProjectileScript : MonoBehaviour
             {
                 wolfMovement.TakeDamage(projectileDamage);
 
-                // If the wolf is retreating by levitating away, upon getting hit, it will be fall and get stunned
                 if (wolfMovement.IsRetreating)
+                {
                     wolfMovement.TriggerStunned();
+                }
 
                 Debug.Log($"Player Projectile has dealt {projectileDamage} damage to {collision.gameObject.name}");
             }

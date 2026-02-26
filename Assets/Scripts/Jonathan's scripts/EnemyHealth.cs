@@ -1,10 +1,21 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class LootDrop
+{
+    public GameObject itemPrefab;
+    public float dropWeight;
+}
+
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private WorldSpaceHealthBar healthBar;
+
+    [Header("Loot Settings")]
+    [SerializeField] private float overallDropChance = 0.7f;
+    [SerializeField] private LootDrop[] possibleDrops;
 
     public UnityEvent onHit;
     public UnityEvent onDeath;
@@ -12,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
     public GameObject originalPrefab;
     private float currentHealth;
 
-    private void OnEnable()
+    public void OnEnable()
     {
         float startingHealth = maxHealth;
         currentHealth = startingHealth;
@@ -23,6 +34,7 @@ public class EnemyHealth : MonoBehaviour
             healthBar.UpdateHealthBar(currentHealth, maxHealth);
         }
     }
+
     public void TakeDamage(float damageAmount)
     {
         float newHealth = currentHealth - damageAmount;
@@ -51,9 +63,44 @@ public class EnemyHealth : MonoBehaviour
             onDeath?.Invoke();
         }
     }
+
     public void HandleDeath()
     {
+        SpawnLoot();
         GameObject currentObject = gameObject;
         ObjectPoolManager.Instance.ReturnToPool(originalPrefab, currentObject);
+    }
+
+    private void SpawnLoot()
+    {
+        if (possibleDrops == null || possibleDrops.Length == 0)
+        {
+            return;
+        }
+
+        if (UnityEngine.Random.value <= overallDropChance)
+        {
+            float totalWeight = 0f;
+            for (int i = 0; i < possibleDrops.Length; i++)
+            {
+                totalWeight += possibleDrops[i].dropWeight;
+            }
+
+            float randomVal = UnityEngine.Random.Range(0f, totalWeight);
+            float currentWeight = 0f;
+
+            for (int i = 0; i < possibleDrops.Length; i++)
+            {
+                currentWeight += possibleDrops[i].dropWeight;
+                if (randomVal <= currentWeight)
+                {
+                    if (possibleDrops[i].itemPrefab != null)
+                    {
+                        Instantiate(possibleDrops[i].itemPrefab, transform.position + Vector3.up, Quaternion.identity);
+                    }
+                    break;
+                }
+            }
+        }
     }
 }

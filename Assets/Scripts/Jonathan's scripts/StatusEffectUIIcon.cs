@@ -22,9 +22,13 @@ public class StatusEffectUIIcon : MonoBehaviour
         {
             timerText.gameObject.SetActive(false);
         }
+        else
+        {
+            timerText.gameObject.SetActive(true);
+        }
     }
 
-    private void Update()
+    public void Update()
     {
         if (!isPermanent)
         {

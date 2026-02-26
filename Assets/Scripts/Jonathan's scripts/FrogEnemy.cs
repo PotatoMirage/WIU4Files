@@ -61,7 +61,7 @@ public class FrogEnemy : MonoBehaviour
             frogAnimator.SetBool("IsEmerged", false);
         }
     }
-    private void Update()
+    public void Update()
     {
         if (isDead || isStunned) return;
 
@@ -153,17 +153,20 @@ public class FrogEnemy : MonoBehaviour
             {
                 timeOutOfRange = 0f;
 
-                Vector3 lookDirection = playerTarget.position - transform.position;
-                lookDirection.y = 0f;
-                if (lookDirection != Vector3.zero)
+                if (!isAttacking)
                 {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), rotationSpeed * Time.deltaTime);
-                }
+                    Vector3 lookDirection = playerTarget.position - transform.position;
+                    lookDirection.y = 0f;
+                    if (lookDirection != Vector3.zero)
+                    {
+                        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), rotationSpeed * Time.deltaTime);
+                    }
 
-                if (!isAttacking && Time.time >= lastAttackTime + attackCooldown)
-                {
-                    PerformDistanceAttack();
-                    lastAttackTime = Time.time;
+                    if (Time.time >= lastAttackTime + attackCooldown)
+                    {
+                        PerformDistanceAttack();
+                        lastAttackTime = Time.time;
+                    }
                 }
             }
         }

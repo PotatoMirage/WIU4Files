@@ -24,6 +24,7 @@ public class PlayerAttackScript : MonoBehaviour
     public float fireCooldown = 0.5f;
     public float fireMaxCharge = 1.0f;
     public float meleeCooldown = 0.5f;
+    public float rangedDamage = 15.0f;
 
     [Header("Crosshair Settings")]
     public RectTransform crosshairOutline;
@@ -135,21 +136,23 @@ public class PlayerAttackScript : MonoBehaviour
         currentUpperAnimation = animationName;
     }
 
-    System.Collections.IEnumerator FireProjectile()
+    public System.Collections.IEnumerator FireProjectile()
     {
         isFiringSlingshot = true;
         audioSource.PlayOneShot(slingshotFireSFX);
 
-        // Instantiate the slingshot fire particle effect at the "projectileSpawnPoint"
         GameObject slingshotEffect = Instantiate(fireEffectPrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation * Quaternion.Euler(-90, 0, 0));
         Destroy(slingshotEffect, slingshotEffect.GetComponent<ParticleSystem>().main.duration);
 
-        Vector3 leftStart = leftLineRenderer.GetPosition(1), rightStart = rightLineRenderer.GetPosition(1);
+        Vector3 leftStart = leftLineRenderer.GetPosition(1);
+        Vector3 rightStart = rightLineRenderer.GetPosition(1);
         float slingshotStringReboundDuration = 0;
 
-        // Instantiate the projectile and fire in the direction the camera is facing
         GameObject projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position, Camera.main.transform.rotation);
-        projectile.GetComponent<SlingshotProjectileScript>().gravityMultiplier = 1.0f - (chargeTimer / fireMaxCharge);
+        SlingshotProjectileScript projScript = projectile.GetComponent<SlingshotProjectileScript>();
+
+        projScript.gravityMultiplier = 1.0f - (chargeTimer / fireMaxCharge);
+        projScript.projectileDamage = rangedDamage;
 
         while (slingshotStringReboundDuration < 0.1f)
         {
